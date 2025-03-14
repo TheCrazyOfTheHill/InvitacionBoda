@@ -10,7 +10,7 @@
             text-align: center;
             margin-top: 50px;
         }
-        input[type="text"] {
+        select {
             padding: 10px;
             font-size: 16px;
             width: 300px;
@@ -34,22 +34,27 @@
 </head>
 <body>
     <h1>¡Nos Casamos! 🎉</h1>
-    <p>Confirma tu asistencia buscando tu nombre en la lista.</p>
+    <p>Confirma tu asistencia seleccionando tu nombre en la lista.</p>
 
-    <input type="text" id="nameSearch" placeholder="Escribe tu nombre">
+    <select id="guestSelect">
+        <option value="">-- Selecciona tu nombre --</option>
+        <option value="Ana López">Ana López</option>
+        <option value="Carlos García">Carlos García</option>
+        <option value="Elena Fernández">Elena Fernández</option>
+        <option value="Guillermo Moreno">Guillermo Moreno</option>
+    </select>
     <button onclick="confirmAttendance()">Confirmar Asistencia</button>
 
     <p id="feedback"></p>
 
     <script>
-        const guestList = ["Ana López", "Carlos García", "Elena Fernández", "Guillermo Moreno"];
-
         function confirmAttendance() {
-            const name = document.getElementById('nameSearch').value.trim();
-            if (guestList.includes(name)) {
+            const select = document.getElementById('guestSelect');
+            const name = select.value;
+            if (name) {
                 document.getElementById('feedback').innerText = `¡Gracias, ${name}! Tu asistencia ha sido confirmada.`;
             } else {
-                document.getElementById('feedback').innerText = 'Nombre no encontrado en la lista. Por favor, contacta con los novios.';
+                document.getElementById('feedback').innerText = 'Por favor, selecciona tu nombre de la lista.';
             }
         }
     </script>
