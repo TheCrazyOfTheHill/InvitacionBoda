@@ -103,9 +103,6 @@
                     <option value="">Elige tu Nickname</option>
                 </select>
             </div>
-            <div>
-                <button type="button" onclick="loginUser()">Iniciar Sesión</button>
-            </div>
         </form>
 
         <!-- Juego -->
@@ -113,6 +110,7 @@
             <h3>¡Bienvenido al Juego!</h3>
             <p>Puntaje: <span id="score">0</span></p>
             <button onclick="playGame()">Jugar</button>
+            <button onclick="saveGame()">Guardar Partida</button>
         </div>
     </div>
 
@@ -181,19 +179,6 @@
             }
         }
 
-        // Iniciar sesión con Nickname
-        function loginUser() {
-            const nickname = document.getElementById('loginNickname').value.trim();
-
-            if (nickname) {
-                // Ocultar la pantalla de login y mostrar el juego
-                document.getElementById('gameContainer').style.display = 'block';
-                document.getElementById('loginForm').style.display = 'none';
-            } else {
-                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname.';
-            }
-        }
-
         // Función del juego (simulada)
         function playGame() {
             let score = parseInt(document.getElementById('score').innerText);
@@ -202,6 +187,37 @@
 
             // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos si lo deseas.
         }
+
+        // Guardar la partida (puntaje) en Google Sheets
+        function saveGame() {
+            const nickname = document.getElementById('loginNickname').value;
+            const score = parseInt(document.getElementById('score').innerText);
+
+            if (nickname && score !== undefined) {
+                // Enviar los datos al servidor para que se actualice en Google Sheets
+                fetch('https://script.google.com/macros/s/AKfycbw8kzSNBkII77JxOIUfGjKDBXDg-Yrj6rKfzb9STYGmaHiJt1_3KKuQ31DLGYNYCgpRgA/exec', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'nickname': nickname,
+                        'score': score.toString()
+                    })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('feedback').innerText = 'Partida guardada exitosamente';
+                })
+                .catch(error => {
+                    console.error('Error al guardar la partida:', error);
+                    document.getElementById('feedback').innerText = 'Hubo un error al guardar la partida';
+                });
+            } else {
+                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname y juega antes de guardar';
+            }
+        }
+
+        // Cargar los Nicknames al cargar la página
+        window.onload = fetchNicknamesForLogin;
+
     </script>
 
 </body>
