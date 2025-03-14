@@ -53,6 +53,7 @@
             const name = select.value;
             if (name) {
                 document.getElementById('feedback').innerText = `¡Gracias, ${name}! Tu asistencia ha sido confirmada.`;
+                select.remove(select.selectedIndex);
             } else {
                 document.getElementById('feedback').innerText = 'Por favor, selecciona tu nombre de la lista.';
             }
