@@ -99,14 +99,13 @@
         <form id="loginFormContainer">
             <div>
                 <label for="loginNickname">Nickname:</label>
-                <select id="loginNickname" required>
-                    <option value="">Elige tu Nickname</option>
+                <input type="text" id="loginNickname" placeholder="Escribe tu Nickname..." required />
                 </select>
             </div>
         </form>
 
         <!-- Juego -->
-        <div id="gameContainer" style="display:none;">
+        <div id="gameContainer" style="display:block;">
             <h3>¡Bienvenido al Juego!</h3>
             <p>Puntaje: <span id="score">0</span></p>
             <button onclick="playGame()">Jugar</button>
