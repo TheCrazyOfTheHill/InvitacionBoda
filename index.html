@@ -110,6 +110,7 @@
             <h3>¡Bienvenido al Juego!</h3>
             <p>Puntuación: <span id="score">0</span></p>
             <button onclick="playGame()">Jugar</button>
+            <button onclick="location.href='dinosaurio.html'">Ir a la página 2</button>
             <button onclick="saveGame()">Guardar Partida</button>
         </div>
     </div>
@@ -185,7 +186,6 @@
             let score = parseInt(document.getElementById('score').innerText);
             score += Math.floor(Math.random() * 10) + 1;  // Aumentar puntaje aleatoriamente
             document.getElementById('score').innerText = score;
-
             // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos si lo deseas.
         }
 
