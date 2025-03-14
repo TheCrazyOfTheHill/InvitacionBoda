@@ -31,17 +31,13 @@
             margin-top: 20px;
             font-weight: bold;
         }
-        #nicknameList {
-            margin-top: 20px;
-            font-size: 16px;
-        }
         #nicknameDropdown {
             font-size: 16px;
             padding: 10px;
             margin-top: 10px;
         }
         .form-container {
-            display: none;
+            display: block;
         }
     </style>
 </head>
@@ -50,48 +46,7 @@
     <h1>¡Nos Casamos! 🎉</h1>
     <p>Por favor, selecciona una opción:</p>
 
-    <button onclick="showNewUserForm()">Nuevo Usuario</button>
     <button onclick="showLoginForm()">Iniciar Sesión</button>
-
-    <!-- Pantalla Nuevo Usuario -->
-    <div id="newUserForm" class="form-container">
-        <h2>Registro de Nuevo Usuario</h2>
-        <form id="newUserConfirmationForm">
-            <div>
-                <label for="newName">Nombre:</label>
-                <input type="text" id="newName" required />
-            </div>
-
-            <div>
-                <label for="newLastName">Apellidos:</label>
-                <input type="text" id="newLastName" required />
-            </div>
-
-            <div>
-                <label for="newAccompanyName">Nombre del Acompañante:</label>
-                <input type="text" id="newAccompanyName" />
-            </div>
-
-            <div>
-                <label for="newFoodPreference">Comida Preferida:</label>
-                <input type="text" id="newFoodPreference" required />
-            </div>
-
-            <div>
-                <label for="newAllergens">Alérgenos:</label>
-                <input type="text" id="newAllergens" />
-            </div>
-
-            <div>
-                <label for="newNickname">Nickname:</label>
-                <input type="text" id="newNickname" required />
-            </div>
-
-            <div>
-                <button type="button" onclick="confirmNewUser()">Confirmar Registro</button>
-            </div>
-        </form>
-    </div>
 
     <!-- Pantalla Iniciar Sesión -->
     <div id="loginForm" class="form-container">
@@ -109,26 +64,24 @@
         </form>
 
         <!-- Juego -->
-        <div id="gameContainer" style="display:none;">
+        <div id="gameContainer">
             <h3>¡Bienvenido al Juego!</h3>
             <p>Puntaje: <span id="score">0</span></p>
             <button onclick="playGame()">Jugar</button>
+        </div>
+
+        <!-- Guardar -->
+        <div id="saveContainer">
+            <button onclick="saveGame()">Guardar Partida</button>
         </div>
     </div>
 
     <p id="feedback"></p>
 
     <script>
-        // Mostrar el formulario de Nuevo Usuario
-        function showNewUserForm() {
-            document.getElementById('newUserForm').style.display = 'block';
-            document.getElementById('loginForm').style.display = 'none';
-        }
-
         // Mostrar el formulario de Iniciar Sesión
         function showLoginForm() {
             document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('newUserForm').style.display = 'none';
             fetchNicknamesForLogin(); // Cargar Nicknames para iniciar sesión
         }
 
@@ -149,46 +102,12 @@
                 .catch(error => console.error('Error al obtener Nicknames:', error));
         }
 
-        // Confirmar registro de nuevo usuario
-        function confirmNewUser() {
-            const name = document.getElementById('newName').value.trim();
-            const lastName = document.getElementById('newLastName').value.trim();
-            const accompanyName = document.getElementById('newAccompanyName').value.trim();
-            const foodPreference = document.getElementById('newFoodPreference').value.trim();
-            const allergens = document.getElementById('newAllergens').value.trim();
-            const nickname = document.getElementById('newNickname').value.trim();
-
-            if (name && lastName && foodPreference && nickname) {
-                fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
-                    method: 'POST',
-                    body: new URLSearchParams({
-                        'name': name,
-                        'lastName': lastName,
-                        'accompanyName': accompanyName || 'Ninguno',
-                        'foodPreference': foodPreference,
-                        'allergens': allergens || 'Ninguno',
-                        'nickname': nickname
-                    })
-                })
-                .then(response => response.text())
-                .then(message => {
-                    document.getElementById('feedback').innerText = message;
-                    document.getElementById('newUserConfirmationForm').reset(); // Limpiar formulario
-                })
-                .catch(error => console.error('Error al confirmar asistencia:', error));
-            } else {
-                document.getElementById('feedback').innerText = 'Por favor, completa todos los campos obligatorios.';
-            }
-        }
-
         // Iniciar sesión con Nickname
         function loginUser() {
             const nickname = document.getElementById('loginNickname').value.trim();
 
             if (nickname) {
-                // Ocultar la pantalla de login y mostrar el juego
-                document.getElementById('gameContainer').style.display = 'block';
-                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('feedback').innerText = `Bienvenido, ${nickname}!`;
             } else {
                 document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname.';
             }
@@ -199,8 +118,19 @@
             let score = parseInt(document.getElementById('score').innerText);
             score += Math.floor(Math.random() * 10) + 1;  // Aumentar puntaje aleatoriamente
             document.getElementById('score').innerText = score;
+        }
 
-            // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos si lo deseas.
+        // Guardar partida (simulada)
+        function saveGame() {
+            const score = document.getElementById('score').innerText;
+            const nickname = document.getElementById('loginNickname').value.trim();
+
+            if (nickname && score) {
+                // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos
+                document.getElementById('feedback').innerText = `Partida guardada para ${nickname} con un puntaje de ${score}`;
+            } else {
+                document.getElementById('feedback').innerText = 'Por favor, inicia sesión y juega antes de guardar.';
+            }
         }
     </script>
 
