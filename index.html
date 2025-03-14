@@ -48,63 +48,17 @@
 <body>
 
     <h1>¡Nos Casamos! 🎉</h1>
-    <p>Por favor, selecciona una opción:</p>
+    <p>Por favor, selecciona tu Nickname para jugar:</p>
 
-    <button onclick="showNewUserForm()">Nuevo Usuario</button>
-    <button onclick="showLoginForm()">Iniciar Sesión</button>
-
-    <!-- Pantalla Nuevo Usuario -->
-    <div id="newUserForm" class="form-container">
-        <h2>Registro de Nuevo Usuario</h2>
-        <form id="newUserConfirmationForm">
-            <div>
-                <label for="newName">Nombre:</label>
-                <input type="text" id="newName" required />
-            </div>
-
-            <div>
-                <label for="newLastName">Apellidos:</label>
-                <input type="text" id="newLastName" required />
-            </div>
-
-            <div>
-                <label for="newAccompanyName">Nombre del Acompañante:</label>
-                <input type="text" id="newAccompanyName" />
-            </div>
-
-            <div>
-                <label for="newFoodPreference">Comida Preferida:</label>
-                <input type="text" id="newFoodPreference" required />
-            </div>
-
-            <div>
-                <label for="newAllergens">Alérgenos:</label>
-                <input type="text" id="newAllergens" />
-            </div>
-
-            <div>
-                <label for="newNickname">Nickname:</label>
-                <input type="text" id="newNickname" required />
-            </div>
-
-            <div>
-                <button type="button" onclick="confirmNewUser()">Confirmar Registro</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Pantalla Iniciar Sesión -->
-    <div id="loginForm" class="form-container">
+    <!-- Pantalla Iniciar Sesión (Ahora solo selección de Nickname) -->
+    <div id="loginForm">
         <h2>Iniciar Sesión</h2>
         <form id="loginFormContainer">
             <div>
                 <label for="loginNickname">Nickname:</label>
-                <select id="loginNickname" required>
+                <select id="loginNickname" required onchange="showGame()">
                     <option value="">Elige tu Nickname</option>
                 </select>
-            </div>
-            <div>
-                <button type="button" onclick="loginUser()">Iniciar Sesión</button>
             </div>
         </form>
 
@@ -113,25 +67,13 @@
             <h3>¡Bienvenido al Juego!</h3>
             <p>Puntaje: <span id="score">0</span></p>
             <button onclick="playGame()">Jugar</button>
+            <button onclick="saveGame()">Guardar Partida</button>
         </div>
     </div>
 
     <p id="feedback"></p>
 
     <script>
-        // Mostrar el formulario de Nuevo Usuario
-        function showNewUserForm() {
-            document.getElementById('newUserForm').style.display = 'block';
-            document.getElementById('loginForm').style.display = 'none';
-        }
-
-        // Mostrar el formulario de Iniciar Sesión
-        function showLoginForm() {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('newUserForm').style.display = 'none';
-            fetchNicknamesForLogin(); // Cargar Nicknames para iniciar sesión
-        }
-
         // Obtener los Nicknames para el login
         function fetchNicknamesForLogin() {
             fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec') // URL de la API de Google Apps Script
@@ -149,49 +91,16 @@
                 .catch(error => console.error('Error al obtener Nicknames:', error));
         }
 
-        // Confirmar registro de nuevo usuario
-        function confirmNewUser() {
-            const name = document.getElementById('newName').value.trim();
-            const lastName = document.getElementById('newLastName').value.trim();
-            const accompanyName = document.getElementById('newAccompanyName').value.trim();
-            const foodPreference = document.getElementById('newFoodPreference').value.trim();
-            const allergens = document.getElementById('newAllergens').value.trim();
-            const nickname = document.getElementById('newNickname').value.trim();
-
-            if (name && lastName && foodPreference && nickname) {
-                fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
-                    method: 'POST',
-                    body: new URLSearchParams({
-                        'name': name,
-                        'lastName': lastName,
-                        'accompanyName': accompanyName || 'Ninguno',
-                        'foodPreference': foodPreference,
-                        'allergens': allergens || 'Ninguno',
-                        'nickname': nickname
-                    })
-                })
-                .then(response => response.text())
-                .then(message => {
-                    document.getElementById('feedback').innerText = message;
-                    document.getElementById('newUserConfirmationForm').reset(); // Limpiar formulario
-                })
-                .catch(error => console.error('Error al confirmar asistencia:', error));
-            } else {
-                document.getElementById('feedback').innerText = 'Por favor, completa todos los campos obligatorios.';
-            }
-        }
-
-        // Iniciar sesión con Nickname
-        function loginUser() {
-            const nickname = document.getElementById('loginNickname').value.trim();
+        // Mostrar el juego una vez se haya seleccionado un Nickname
+        function showGame() {
+            const nickname = document.getElementById('loginNickname').value;
 
             if (nickname) {
-                // Ocultar la pantalla de login y mostrar el juego
+                // Mostrar el juego
                 document.getElementById('gameContainer').style.display = 'block';
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('feedback').innerText = ''; // Limpiar mensaje de error
+                document.getElementById('feedback').innerText = ''; // Limpiar cualquier mensaje previo
             } else {
-                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname válido.';
+                document.getElementById('gameContainer').style.display = 'none';
             }
         }
 
@@ -200,9 +109,37 @@
             let score = parseInt(document.getElementById('score').innerText);
             score += Math.floor(Math.random() * 10) + 1;  // Aumentar puntaje aleatoriamente
             document.getElementById('score').innerText = score;
-
-            // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos si lo deseas.
         }
+
+        // Guardar la partida (puntaje) en Google Sheets
+        function saveGame() {
+            const nickname = document.getElementById('loginNickname').value;
+            const score = parseInt(document.getElementById('score').innerText);
+
+            if (nickname && score !== undefined) {
+                // Enviar los datos al servidor para que se actualice en Google Sheets
+                fetch('https://script.google.com/macros/s/AKfycbw8kzSNBkII77JxOIUfGjKDBXDg-Yrj6rKfzb9STYGmaHiJt1_3KKuQ31DLGYNYCgpRgA/exec', {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        'nickname': nickname,
+                        'score': score.toString()
+                    })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('feedback').innerText = 'Partida guardada exitosamente';
+                })
+                .catch(error => {
+                    console.error('Error al guardar la partida:', error);
+                    document.getElementById('feedback').innerText = 'Hubo un error al guardar la partida';
+                });
+            } else {
+                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname y juega antes de guardar';
+            }
+        }
+
+        // Cargar los Nicknames al cargar la página
+        window.onload = fetchNicknamesForLogin;
     </script>
 
 </body>
