@@ -10,7 +10,7 @@
             text-align: center;
             margin-top: 50px;
         }
-        select {
+        select, input {
             padding: 10px;
             font-size: 16px;
             width: 300px;
@@ -39,13 +39,19 @@
     <select id="guestSelect">
         <option value="">-- Selecciona tu nombre --</option>
     </select>
+
+    <div id="accompanyDiv" style="display:none;">
+        <p>¿Traes acompañante?</p>
+        <input type="text" id="accompanyName" placeholder="Escribe el nombre del acompañante" />
+    </div>
+
     <button onclick="confirmAttendance()">Confirmar Asistencia</button>
 
     <p id="feedback"></p>
 
     <script>
         // Cargar la lista de invitados desde el script de Google Apps
-        fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec') // Reemplaza con tu script ID
+        fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec')
             .then(response => response.json())
             .then(data => {
                 const select = document.getElementById('guestSelect');
@@ -58,21 +64,36 @@
             })
             .catch(error => console.error('Error al cargar la lista de invitados:', error));
 
+        // Mostrar o ocultar el campo de acompañante según el nombre seleccionado
+        document.getElementById('guestSelect').addEventListener('change', function() {
+            const selectedName = this.value;
+            const accompanyDiv = document.getElementById('accompanyDiv');
+            if (selectedName) {
+                accompanyDiv.style.display = 'block';  // Mostrar campo para acompañante
+            } else {
+                accompanyDiv.style.display = 'none';  // Ocultar campo si no hay selección
+            }
+        });
+
         function confirmAttendance() {
             const select = document.getElementById('guestSelect');
             const name = select.value;
+            const accompanyName = document.getElementById('accompanyName').value.trim();
             if (name) {
-                // Enviar el nombre al script de Google Apps
+                // Enviar el nombre y el acompañante al script de Google Apps
                 fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec', {
                     method: 'POST',
                     body: new URLSearchParams({
-                        'name': name
+                        'name': name,
+                        'accompanyName': accompanyName || 'Ninguno'
                     })
                 })
                 .then(response => response.text())
                 .then(message => {
                     document.getElementById('feedback').innerText = message;
                     select.remove(select.selectedIndex); // Eliminar el nombre del menú desplegable
+                    document.getElementById('accompanyName').value = '';  // Limpiar el campo del acompañante
+                    document.getElementById('accompanyDiv').style.display = 'none';  // Ocultar el campo de acompañante
                 })
                 .catch(error => console.error('Error al confirmar asistencia:', error));
             } else {
