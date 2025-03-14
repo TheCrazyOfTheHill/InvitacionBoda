@@ -53,6 +53,16 @@
             const name = select.value;
             if (name) {
                 document.getElementById('feedback').innerText = `¡Gracias, ${name}! Tu asistencia ha sido confirmada.`;
+
+                // Enviar la solicitud POST a Google Apps Script
+                fetch('https://script.google.com/macros/s/AKfycbyjsgla-yEs3RGXDhE61uEuGasOepAHn511HlXiKcjpp0AlmpkxFjakbHCSCHXIvu7V4Q/exec', {
+                    method: 'POST',
+                    body: new URLSearchParams({ name }), // Enviar el nombre como parámetro
+                })
+                .then(response => response.text())
+                .then(data => console.log(data))  // Ver respuesta en consola
+                .catch(error => console.error('Error:', error));
+
                 select.remove(select.selectedIndex);
             } else {
                 document.getElementById('feedback').innerText = 'Por favor, selecciona tu nombre de la lista.';
