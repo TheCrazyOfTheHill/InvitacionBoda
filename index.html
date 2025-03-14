@@ -51,7 +51,7 @@
 
     <script>
         // Cargar la lista de invitados desde el script de Google Apps
-        fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec')
+        fetch('https://script.google.com/macros/s/AKfycbwL1d8maEcgmsDcs_Qp4OazM9E46xmvm87z4_B_7dEA5AXefJO6_YMhOK0kjXPJfp80PA/exec')
             .then(response => response.json())
             .then(data => {
                 const select = document.getElementById('guestSelect');
@@ -81,7 +81,7 @@
             const accompanyName = document.getElementById('accompanyName').value.trim();
             if (name) {
                 // Enviar el nombre y el acompañante al script de Google Apps
-                fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec', {
+                fetch('https://script.google.com/macros/s/AKfycbwL1d8maEcgmsDcs_Qp4OazM9E46xmvm87z4_B_7dEA5AXefJO6_YMhOK0kjXPJfp80PA/exec', {
                     method: 'POST',
                     body: new URLSearchParams({
                         'name': name,
