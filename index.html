@@ -38,32 +38,43 @@
 
     <select id="guestSelect">
         <option value="">-- Selecciona tu nombre --</option>
-        <option value="Ana López">Ana López</option>
-        <option value="Carlos García">Carlos García</option>
-        <option value="Elena Fernández">Elena Fernández</option>
-        <option value="Guillermo Moreno">Guillermo Moreno</option>
     </select>
     <button onclick="confirmAttendance()">Confirmar Asistencia</button>
 
     <p id="feedback"></p>
 
     <script>
+        // Cargar la lista de invitados desde el script de Google Apps
+        fetch('https://script.google.com/macros/s/AKfycbyjsgla-yEs3RGXDhE61uEuGasOepAHn511HlXiKcjpp0AlmpkxFjakbHCSCHXIvu7V4Q/exec') // Reemplaza con tu script ID
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('guestSelect');
+                data.forEach(guest => {
+                    const option = document.createElement('option');
+                    option.value = guest;
+                    option.textContent = guest;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al cargar la lista de invitados:', error));
+
         function confirmAttendance() {
             const select = document.getElementById('guestSelect');
             const name = select.value;
             if (name) {
-                document.getElementById('feedback').innerText = `¡Gracias, ${name}! Tu asistencia ha sido confirmada.`;
-
-                // Enviar la solicitud POST a Google Apps Script
+                // Enviar el nombre al script de Google Apps
                 fetch('https://script.google.com/macros/s/AKfycbyjsgla-yEs3RGXDhE61uEuGasOepAHn511HlXiKcjpp0AlmpkxFjakbHCSCHXIvu7V4Q/exec', {
                     method: 'POST',
-                    body: new URLSearchParams({ name }), // Enviar el nombre como parámetro
+                    body: new URLSearchParams({
+                        'name': name
+                    })
                 })
                 .then(response => response.text())
-                .then(data => console.log(data))  // Ver respuesta en consola
-                .catch(error => console.error('Error:', error));
-
-                select.remove(select.selectedIndex);
+                .then(message => {
+                    document.getElementById('feedback').innerText = message;
+                    select.remove(select.selectedIndex); // Eliminar el nombre del menú desplegable
+                })
+                .catch(error => console.error('Error al confirmar asistencia:', error));
             } else {
                 document.getElementById('feedback').innerText = 'Por favor, selecciona tu nombre de la lista.';
             }
