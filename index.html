@@ -100,22 +100,20 @@
             <div>
                 <label for="loginNickname">Nickname:</label>
                 <select id="loginNickname" required>
+                    <option value="">Elige tu Nickname</option>
                 </select>
+            </div>
+            <div>
+                <button type="button" onclick="loginUser()">Iniciar Sesión</button>
             </div>
         </form>
 
         <!-- Juego -->
-        <div id="gameContainer" style="display:block;">
+        <div id="gameContainer" style="display:none;">
             <h3>¡Bienvenido al Juego!</h3>
             <p>Puntaje: <span id="score">0</span></p>
             <button onclick="playGame()">Jugar</button>
         </div>
-
-        <!-- Guardar -->
-        <div id="saveContainer">
-            <button onclick="saveGame()">Guardar Partida</button>
-        </div>
-        
     </div>
 
     <p id="feedback"></p>
@@ -204,20 +202,6 @@
 
             // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos si lo deseas.
         }
-
-        // Guardar partida (simulada)
-        function saveGame() {
-            const score = document.getElementById('score').innerText;
-            const nickname = document.getElementById('loginNickname').value.trim();
-
-            if (nickname && score) {
-                // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos
-                document.getElementById('feedback').innerText = `Partida guardada para ${nickname} con un puntaje de ${score}`;
-            } else {
-                document.getElementById('feedback').innerText = 'Por favor, inicia sesión y juega antes de guardar.';
-            }
-        }
-
     </script>
 
 </body>
