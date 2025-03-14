@@ -1,0 +1,66 @@
+ 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Nos Casamos! 🎉</h1>
+    <p>Confirma tu asistencia, informa de alérgenos y participa en el juego.</p>
+
+    <a href="https://forms.gle/tu-formulario-de-confirmacion" target="_blank">
+        <button>Confirmar Asistencia</button>
+    </a>
+    
+    <a href="https://open.spotify.com/playlist/tu-lista-de-spotify" target="_blank">
+        <button>Sugerir Canciones 🎶</button>
+    </a>
+
+    <h2>¿Te atreves con el minijuego? 🎮</h2>
+    <button onclick="startGame()">¡Jugar!</button>
+
+    <div id="gameArea" style="display:none;">
+        <h3>Pregunta: ¿Dónde nos conocimos?</h3>
+        <button onclick="checkAnswer('a')">Cafetería</button>
+        <button onclick="checkAnswer('b')">Parque</button>
+        <button onclick="checkAnswer('c')">Fiesta</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        let score = 0;
+        function startGame() {
+            document.getElementById('gameArea').style.display = 'block';
+        }
+
+        function checkAnswer(answer) {
+            if (answer === 'a') {
+                score++;
+                document.getElementById('feedback').innerText = '¡Correcto! Puntaje: ' + score;
+            } else {
+                document.getElementById('feedback').innerText = '¡Incorrecto! Puntaje: ' + score;
+            }
+        }
+    </script>
+</body>
+</html>
