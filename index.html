@@ -31,6 +31,10 @@
             margin-top: 20px;
             font-weight: bold;
         }
+        #nicknameList {
+            margin-top: 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -63,20 +67,45 @@
             <input type="text" id="allergens" />
         </div>
 
+        <div>
+            <label for="nickname">Nickname:</label>
+            <input type="text" id="nickname" required />
+        </div>
+
+        <!-- Aquí se mostrará el listado de Nicknames -->
+        <div id="nicknameList"></div>
+
         <button type="button" onclick="confirmAttendance()">Confirmar Asistencia</button>
     </form>
 
     <p id="feedback"></p>
 
     <script>
+        // Esta función recupera los Nicknames de la hoja de Google
+        function fetchNicknames() {
+            fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec') // URL de la API de Google Apps Script
+                .then(response => response.json())
+                .then(data => {
+                    const nicknameList = document.getElementById('nicknameList');
+                    nicknameList.innerHTML = ''; // Limpiar lista antes de añadir nuevas opciones
+                    data.forEach(nickname => {
+                        const option = document.createElement('div');
+                        option.innerText = nickname; // Mostrar el Nickname
+                        nicknameList.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al obtener Nicknames:', error));
+        }
+
         function confirmAttendance() {
             const name = document.getElementById('name').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const accompanyName = document.getElementById('accompanyName').value.trim();
             const foodPreference = document.getElementById('foodPreference').value.trim();
             const allergens = document.getElementById('allergens').value.trim();
+            const nickname = document.getElementById('nickname').value.trim();
 
-            if (name && lastName && foodPreference) {
+            if (name && lastName && foodPreference && nickname) {
                 // Enviar los datos al script de Google Apps
                 fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
                     method: 'POST',
@@ -85,7 +114,8 @@
                         'lastName': lastName,
                         'accompanyName': accompanyName || 'Ninguno',
                         'foodPreference': foodPreference,
-                        'allergens': allergens || 'Ninguno'
+                        'allergens': allergens || 'Ninguno',
+                        'nickname': nickname
                     })
                 })
                 .then(response => response.text())
@@ -98,6 +128,9 @@
                 document.getElementById('feedback').innerText = 'Por favor, completa todos los campos obligatorios.';
             }
         }
+
+        // Cargar la lista de Nicknames al cargar la página
+        window.onload = fetchNicknames;
     </script>
 </body>
 </html>
