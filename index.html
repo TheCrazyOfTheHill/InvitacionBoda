@@ -189,8 +189,9 @@
                 // Ocultar la pantalla de login y mostrar el juego
                 document.getElementById('gameContainer').style.display = 'block';
                 document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('feedback').innerText = ''; // Limpiar mensaje de error
             } else {
-                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname.';
+                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname válido.';
             }
         }
 
