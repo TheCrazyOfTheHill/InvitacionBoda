@@ -10,11 +10,10 @@
             text-align: center;
             margin-top: 50px;
         }
-        input, select {
+        select, input {
             padding: 10px;
             font-size: 16px;
             width: 300px;
-            margin: 10px 0;
         }
         button {
             padding: 10px 20px;
@@ -31,116 +30,113 @@
             margin-top: 20px;
             font-weight: bold;
         }
-        #nicknameList {
-            margin-top: 20px;
-            font-size: 16px;
-        }
-        #nicknameDropdown {
-            font-size: 16px;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        .form-container {
+        .form-section {
             display: none;
+        }
+        #nuevoUsuario {
+            display: block; /* Mostrar por defecto la sección de Nuevo Usuario */
         }
     </style>
 </head>
 <body>
-
     <h1>¡Nos Casamos! 🎉</h1>
-    <p>Por favor, selecciona tu Nickname para jugar:</p>
+    
+    <!-- Sección para nuevo usuario -->
+    <div id="nuevoUsuario" class="form-section">
+        <h2>Nuevo Usuario</h2>
+        <input type="text" id="nicknameNuevo" placeholder="Introduce tu Nickname" />
+        <input type="text" id="nameNuevo" placeholder="Introduce tu Nombre" />
+        <input type="text" id="surnameNuevo" placeholder="Introduce tus Apellidos" />
+        <button onclick="registrarNuevoUsuario()">Registrar</button>
+    </div>
 
-    <!-- Pantalla Iniciar Sesión (Ahora solo selección de Nickname) -->
-    <div id="loginForm">
+    <!-- Sección para iniciar sesión -->
+    <div id="iniciarSesion" class="form-section">
         <h2>Iniciar Sesión</h2>
-        <form id="loginFormContainer">
-            <div>
-                <label for="loginNickname">Nickname:</label>
-                <select id="loginNickname" required onchange="showGame()">
-                    <option value="">Elige tu Nickname</option>
-                </select>
-            </div>
-        </form>
-
-        <!-- Juego -->
-        <div id="gameContainer" style="display:none;">
-            <h3>¡Bienvenido al Juego!</h3>
-            <p>Puntaje: <span id="score">0</span></p>
-            <button onclick="playGame()">Jugar</button>
-            <button onclick="saveGame()">Guardar Partida</button>
+        <select id="nicknameSelect" onchange="iniciarSesion()">
+            <option value="">Selecciona tu Nickname</option>
+        </select>
+        <div id="juego" style="display:none;">
+            <p>¡Bienvenido al juego!</p>
+            <button onclick="guardarPuntaje()">Guardar Partida</button>
         </div>
     </div>
 
     <p id="feedback"></p>
 
     <script>
-        // Obtener los Nicknames para el login
-        function fetchNicknamesForLogin() {
-            fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec') // URL de la API de Google Apps Script
-                .then(response => response.json())
-                .then(data => {
-                    const nicknameDropdown = document.getElementById('loginNickname');
-                    nicknameDropdown.innerHTML = '<option value="">Elige tu Nickname</option>';
-                    data.forEach(nickname => {
-                        const option = document.createElement('option');
-                        option.value = nickname;
-                        option.textContent = nickname;
-                        nicknameDropdown.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error al obtener Nicknames:', error));
-        }
+        // Cargar los nicknames existentes al cargar la página
+        fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('nicknameSelect');
+                data.forEach(nickname => {
+                    const option = document.createElement('option');
+                    option.value = nickname;
+                    option.textContent = nickname;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al cargar los nicknames:', error));
 
-        // Mostrar el juego una vez se haya seleccionado un Nickname
-        function showGame() {
-            const nickname = document.getElementById('loginNickname').value;
+        // Registrar un nuevo usuario
+        function registrarNuevoUsuario() {
+            const nickname = document.getElementById('nicknameNuevo').value.trim();
+            const name = document.getElementById('nameNuevo').value.trim();
+            const surname = document.getElementById('surnameNuevo').value.trim();
 
-            if (nickname) {
-                // Mostrar el juego
-                document.getElementById('gameContainer').style.display = 'block';
-                document.getElementById('feedback').innerText = ''; // Limpiar cualquier mensaje previo
-            } else {
-                document.getElementById('gameContainer').style.display = 'none';
-            }
-        }
-
-        // Función del juego (simulada)
-        function playGame() {
-            let score = parseInt(document.getElementById('score').innerText);
-            score += Math.floor(Math.random() * 10) + 1;  // Aumentar puntaje aleatoriamente
-            document.getElementById('score').innerText = score;
-        }
-
-        // Guardar la partida (puntaje) en Google Sheets
-        function saveGame() {
-            const nickname = document.getElementById('loginNickname').value;
-            const score = parseInt(document.getElementById('score').innerText);
-
-            if (nickname && score !== undefined) {
-                // Enviar los datos al servidor para que se actualice en Google Sheets
-                fetch('https://script.google.com/macros/s/AKfycbw8kzSNBkII77JxOIUfGjKDBXDg-Yrj6rKfzb9STYGmaHiJt1_3KKuQ31DLGYNYCgpRgA/exec', {
+            if (nickname && name && surname) {
+                // Aquí podrías enviar estos datos a un script de Google Apps para almacenarlos
+                fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
                     method: 'POST',
                     body: new URLSearchParams({
                         'nickname': nickname,
-                        'score': score.toString()
+                        'name': name,
+                        'surname': surname
                     })
                 })
                 .then(response => response.text())
-                .then(data => {
-                    document.getElementById('feedback').innerText = 'Partida guardada exitosamente';
+                .then(message => {
+                    document.getElementById('feedback').innerText = message;
+                    // Cambiar a la página de iniciar sesión después del registro
+                    document.getElementById('nuevoUsuario').style.display = 'none';
+                    document.getElementById('iniciarSesion').style.display = 'block';
                 })
-                .catch(error => {
-                    console.error('Error al guardar la partida:', error);
-                    document.getElementById('feedback').innerText = 'Hubo un error al guardar la partida';
-                });
+                .catch(error => console.error('Error al registrar:', error));
             } else {
-                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname y juega antes de guardar';
+                document.getElementById('feedback').innerText = 'Por favor, rellena todos los campos.';
             }
         }
 
-        // Cargar los Nicknames al cargar la página
-        window.onload = fetchNicknamesForLogin;
-    </script>
+        // Iniciar sesión con el nickname seleccionado
+        function iniciarSesion() {
+            const nickname = document.getElementById('nicknameSelect').value;
 
+            if (nickname) {
+                document.getElementById('juego').style.display = 'block';  // Mostrar el juego
+            } else {
+                document.getElementById('juego').style.display = 'none';  // Ocultar el juego
+            }
+        }
+
+        // Guardar puntaje del juego
+        function guardarPuntaje() {
+            const nickname = document.getElementById('nicknameSelect').value;
+            const score = Math.floor(Math.random() * 100);  // Ejemplo de puntaje aleatorio, lo puedes cambiar por el puntaje real
+
+            fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'nickname': nickname,
+                    'score': score
+                })
+            })
+            .then(response => response.text())
+            .then(message => {
+                document.getElementById('feedback').innerText = message;
+            })
+            .catch(error => console.error('Error al guardar el puntaje:', error));
+        }
+    </script>
 </body>
 </html>
