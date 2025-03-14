@@ -35,6 +35,11 @@
             margin-top: 20px;
             font-size: 16px;
         }
+        #nicknameDropdown {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -72,10 +77,17 @@
             <input type="text" id="nickname" required />
         </div>
 
-        <!-- Aquí se mostrará el listado de Nicknames -->
-        <div id="nicknameList"></div>
+        <div>
+            <button type="button" onclick="confirmAttendance()">Confirmar Asistencia</button>
+        </div>
 
-        <button type="button" onclick="confirmAttendance()">Confirmar Asistencia</button>
+        <!-- Lista de Nicknames disponibles para seleccionar -->
+        <div id="nicknameList">
+            <p><strong>Nicknames disponibles:</strong></p>
+            <select id="nicknameDropdown" required>
+                <option value="">Elige tu Nickname</option>
+            </select>
+        </div>
     </form>
 
     <p id="feedback"></p>
@@ -86,12 +98,16 @@
             fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec') // URL de la API de Google Apps Script
                 .then(response => response.json())
                 .then(data => {
-                    const nicknameList = document.getElementById('nicknameList');
-                    nicknameList.innerHTML = ''; // Limpiar lista antes de añadir nuevas opciones
+                    const nicknameDropdown = document.getElementById('nicknameDropdown');
+                    // Limpiar la lista antes de añadir nuevas opciones
+                    nicknameDropdown.innerHTML = '<option value="">Elige tu Nickname</option>';
+                    
+                    // Añadir los Nicknames a la lista desplegable
                     data.forEach(nickname => {
-                        const option = document.createElement('div');
-                        option.innerText = nickname; // Mostrar el Nickname
-                        nicknameList.appendChild(option);
+                        const option = document.createElement('option');
+                        option.value = nickname;
+                        option.textContent = nickname;
+                        nicknameDropdown.appendChild(option);
                     });
                 })
                 .catch(error => console.error('Error al obtener Nicknames:', error));
