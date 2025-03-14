@@ -10,10 +10,11 @@
             text-align: center;
             margin-top: 50px;
         }
-        select, input {
+        input, select {
             padding: 10px;
             font-size: 16px;
             width: 300px;
+            margin: 10px 0;
         }
         button {
             padding: 10px 20px;
@@ -30,113 +31,178 @@
             margin-top: 20px;
             font-weight: bold;
         }
-        .form-section {
-            display: none;
+        #nicknameList {
+            margin-top: 20px;
+            font-size: 16px;
         }
-        #nuevoUsuario {
-            display: block; /* Mostrar por defecto la sección de Nuevo Usuario */
+        #nicknameDropdown {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .form-container {
+            display: none;
         }
     </style>
 </head>
 <body>
+
     <h1>¡Nos Casamos! 🎉</h1>
-    
-    <!-- Sección para nuevo usuario -->
-    <div id="nuevoUsuario" class="form-section">
-        <h2>Nuevo Usuario</h2>
-        <input type="text" id="nicknameNuevo" placeholder="Introduce tu Nickname" />
-        <input type="text" id="nameNuevo" placeholder="Introduce tu Nombre" />
-        <input type="text" id="surnameNuevo" placeholder="Introduce tus Apellidos" />
-        <button onclick="registrarNuevoUsuario()">Registrar</button>
+    <p>Por favor, selecciona una opción:</p>
+
+    <button onclick="showNewUserForm()">Nuevo Usuario</button>
+    <button onclick="showLoginForm()">Iniciar Sesión</button>
+
+    <!-- Pantalla Nuevo Usuario -->
+    <div id="newUserForm" class="form-container">
+        <h2>Registro de Nuevo Usuario</h2>
+        <form id="newUserConfirmationForm">
+            <div>
+                <label for="newName">Nombre:</label>
+                <input type="text" id="newName" required />
+            </div>
+
+            <div>
+                <label for="newLastName">Apellidos:</label>
+                <input type="text" id="newLastName" required />
+            </div>
+
+            <div>
+                <label for="newAccompanyName">Nombre del Acompañante:</label>
+                <input type="text" id="newAccompanyName" />
+            </div>
+
+            <div>
+                <label for="newFoodPreference">Comida Preferida:</label>
+                <input type="text" id="newFoodPreference" required />
+            </div>
+
+            <div>
+                <label for="newAllergens">Alérgenos:</label>
+                <input type="text" id="newAllergens" />
+            </div>
+
+            <div>
+                <label for="newNickname">Nickname:</label>
+                <input type="text" id="newNickname" required />
+            </div>
+
+            <div>
+                <button type="button" onclick="confirmNewUser()">Confirmar Registro</button>
+            </div>
+        </form>
     </div>
 
-    <!-- Sección para iniciar sesión -->
-    <div id="iniciarSesion" class="form-section">
+    <!-- Pantalla Iniciar Sesión -->
+    <div id="loginForm" class="form-container">
         <h2>Iniciar Sesión</h2>
-        <select id="nicknameSelect" onchange="iniciarSesion()">
-            <option value="">Selecciona tu Nickname</option>
-        </select>
-        <div id="juego" style="display:none;">
-            <p>¡Bienvenido al juego!</p>
-            <button onclick="guardarPuntaje()">Guardar Partida</button>
+        <form id="loginFormContainer">
+            <div>
+                <label for="loginNickname">Nickname:</label>
+                <select id="loginNickname" required>
+                    <option value="">Elige tu Nickname</option>
+                </select>
+            </div>
+            <div>
+                <button type="button" onclick="loginUser()">Iniciar Sesión</button>
+            </div>
+        </form>
+
+        <!-- Juego -->
+        <div id="gameContainer" style="display:none;">
+            <h3>¡Bienvenido al Juego!</h3>
+            <p>Puntaje: <span id="score">0</span></p>
+            <button onclick="playGame()">Jugar</button>
         </div>
     </div>
 
     <p id="feedback"></p>
 
     <script>
-        // Cargar los nicknames existentes al cargar la página
-        fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec')
-            .then(response => response.json())
-            .then(data => {
-                const select = document.getElementById('nicknameSelect');
-                data.forEach(nickname => {
-                    const option = document.createElement('option');
-                    option.value = nickname;
-                    option.textContent = nickname;
-                    select.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error al cargar los nicknames:', error));
+        // Mostrar el formulario de Nuevo Usuario
+        function showNewUserForm() {
+            document.getElementById('newUserForm').style.display = 'block';
+            document.getElementById('loginForm').style.display = 'none';
+        }
 
-        // Registrar un nuevo usuario
-        function registrarNuevoUsuario() {
-            const nickname = document.getElementById('nicknameNuevo').value.trim();
-            const name = document.getElementById('nameNuevo').value.trim();
-            const surname = document.getElementById('surnameNuevo').value.trim();
+        // Mostrar el formulario de Iniciar Sesión
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('newUserForm').style.display = 'none';
+            fetchNicknamesForLogin(); // Cargar Nicknames para iniciar sesión
+        }
 
-            if (nickname && name && surname) {
-                // Aquí podrías enviar estos datos a un script de Google Apps para almacenarlos
+        // Obtener los Nicknames para el login
+        function fetchNicknamesForLogin() {
+            fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec') // URL de la API de Google Apps Script
+                .then(response => response.json())
+                .then(data => {
+                    const nicknameDropdown = document.getElementById('loginNickname');
+                    nicknameDropdown.innerHTML = '<option value="">Elige tu Nickname</option>';
+                    data.forEach(nickname => {
+                        const option = document.createElement('option');
+                        option.value = nickname;
+                        option.textContent = nickname;
+                        nicknameDropdown.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al obtener Nicknames:', error));
+        }
+
+        // Confirmar registro de nuevo usuario
+        function confirmNewUser() {
+            const name = document.getElementById('newName').value.trim();
+            const lastName = document.getElementById('newLastName').value.trim();
+            const accompanyName = document.getElementById('newAccompanyName').value.trim();
+            const foodPreference = document.getElementById('newFoodPreference').value.trim();
+            const allergens = document.getElementById('newAllergens').value.trim();
+            const nickname = document.getElementById('newNickname').value.trim();
+
+            if (name && lastName && foodPreference && nickname) {
                 fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
                     method: 'POST',
                     body: new URLSearchParams({
-                        'nickname': nickname,
                         'name': name,
-                        'surname': surname
+                        'lastName': lastName,
+                        'accompanyName': accompanyName || 'Ninguno',
+                        'foodPreference': foodPreference,
+                        'allergens': allergens || 'Ninguno',
+                        'nickname': nickname
                     })
                 })
                 .then(response => response.text())
                 .then(message => {
                     document.getElementById('feedback').innerText = message;
-                    // Cambiar a la página de iniciar sesión después del registro
-                    document.getElementById('nuevoUsuario').style.display = 'none';
-                    document.getElementById('iniciarSesion').style.display = 'block';
+                    document.getElementById('newUserConfirmationForm').reset(); // Limpiar formulario
                 })
-                .catch(error => console.error('Error al registrar:', error));
+                .catch(error => console.error('Error al confirmar asistencia:', error));
             } else {
-                document.getElementById('feedback').innerText = 'Por favor, rellena todos los campos.';
+                document.getElementById('feedback').innerText = 'Por favor, completa todos los campos obligatorios.';
             }
         }
 
-        // Iniciar sesión con el nickname seleccionado
-        function iniciarSesion() {
-            const nickname = document.getElementById('nicknameSelect').value;
+        // Iniciar sesión con Nickname
+        function loginUser() {
+            const nickname = document.getElementById('loginNickname').value.trim();
 
             if (nickname) {
-                document.getElementById('juego').style.display = 'block';  // Mostrar el juego
+                // Ocultar la pantalla de login y mostrar el juego
+                document.getElementById('gameContainer').style.display = 'block';
+                document.getElementById('loginForm').style.display = 'none';
             } else {
-                document.getElementById('juego').style.display = 'none';  // Ocultar el juego
+                document.getElementById('feedback').innerText = 'Por favor, selecciona un Nickname.';
             }
         }
 
-        // Guardar puntaje del juego
-        function guardarPuntaje() {
-            const nickname = document.getElementById('nicknameSelect').value;
-            const score = Math.floor(Math.random() * 100);  // Ejemplo de puntaje aleatorio, lo puedes cambiar por el puntaje real
+        // Función del juego (simulada)
+        function playGame() {
+            let score = parseInt(document.getElementById('score').innerText);
+            score += Math.floor(Math.random() * 10) + 1;  // Aumentar puntaje aleatoriamente
+            document.getElementById('score').innerText = score;
 
-            fetch('https://script.google.com/macros/s/AKfycbzkzRBBpYaVLpbxaX9ZoL5w2rpl5rgNgGScykH2R2lELRNaF6GC0FmMIssUAJZ6gtqPHA/exec', {
-                method: 'POST',
-                body: new URLSearchParams({
-                    'nickname': nickname,
-                    'score': score
-                })
-            })
-            .then(response => response.text())
-            .then(message => {
-                document.getElementById('feedback').innerText = message;
-            })
-            .catch(error => console.error('Error al guardar el puntaje:', error));
+            // Aquí puedes guardar la puntuación en Google Sheets o en otra base de datos si lo deseas.
         }
     </script>
+
 </body>
 </html>
