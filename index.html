@@ -45,7 +45,7 @@
 
     <script>
         // Cargar la lista de invitados desde el script de Google Apps
-        fetch('https://script.google.com/macros/s/AKfycbyjsgla-yEs3RGXDhE61uEuGasOepAHn511HlXiKcjpp0AlmpkxFjakbHCSCHXIvu7V4Q/exec') // Reemplaza con tu script ID
+        fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec') // Reemplaza con tu script ID
             .then(response => response.json())
             .then(data => {
                 const select = document.getElementById('guestSelect');
@@ -63,7 +63,7 @@
             const name = select.value;
             if (name) {
                 // Enviar el nombre al script de Google Apps
-                fetch('https://script.google.com/macros/s/AKfycbyjsgla-yEs3RGXDhE61uEuGasOepAHn511HlXiKcjpp0AlmpkxFjakbHCSCHXIvu7V4Q/exec', {
+                fetch('https://script.google.com/macros/s/AKfycbwWqKcOmkGGFZUCWB6TfPMOTEG87yJmyJaHr7FbdCZe_9XIqz3D2nQTCjfETOu1z3xDSw/exec', {
                     method: 'POST',
                     body: new URLSearchParams({
                         'name': name
