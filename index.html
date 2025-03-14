@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,6 +10,11 @@
             text-align: center;
             margin-top: 50px;
         }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -22,43 +26,30 @@
         button:hover {
             background-color: #45a049;
         }
+        #feedback {
+            margin-top: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <h1>¡Nos Casamos! 🎉</h1>
-    <p>Confirma tu asistencia, informa de alérgenos y participa en el juego.</p>
+    <p>Confirma tu asistencia buscando tu nombre en la lista.</p>
 
-    <a href="https://forms.gle/tu-formulario-de-confirmacion" target="_blank">
-        <button>Confirmar Asistencia</button>
-    </a>
-    
-    <a href="https://open.spotify.com/playlist/tu-lista-de-spotify" target="_blank">
-        <button>Sugerir Canciones 🎶</button>
-    </a>
+    <input type="text" id="nameSearch" placeholder="Escribe tu nombre">
+    <button onclick="confirmAttendance()">Confirmar Asistencia</button>
 
-    <h2>¿Te atreves con el minijuego? 🎮</h2>
-    <button onclick="startGame()">¡Jugar!</button>
-
-    <div id="gameArea" style="display:none;">
-        <h3>Pregunta: ¿Dónde nos conocimos?</h3>
-        <button onclick="checkAnswer('a')">Cafetería</button>
-        <button onclick="checkAnswer('b')">Parque</button>
-        <button onclick="checkAnswer('c')">Fiesta</button>
-        <p id="feedback"></p>
-    </div>
+    <p id="feedback"></p>
 
     <script>
-        let score = 0;
-        function startGame() {
-            document.getElementById('gameArea').style.display = 'block';
-        }
+        const guestList = ["Ana López", "Carlos García", "Elena Fernández", "Guillermo Moreno"];
 
-        function checkAnswer(answer) {
-            if (answer === 'a') {
-                score++;
-                document.getElementById('feedback').innerText = '¡Correcto! Puntaje: ' + score;
+        function confirmAttendance() {
+            const name = document.getElementById('nameSearch').value.trim();
+            if (guestList.includes(name)) {
+                document.getElementById('feedback').innerText = `¡Gracias, ${name}! Tu asistencia ha sido confirmada.`;
             } else {
-                document.getElementById('feedback').innerText = '¡Incorrecto! Puntaje: ' + score;
+                document.getElementById('feedback').innerText = 'Nombre no encontrado en la lista. Por favor, contacta con los novios.';
             }
         }
     </script>
