@@ -378,7 +378,7 @@ function GanarPuntos() {
     score++;
     textoScore.innerText = score;
     if(score == 5){
-        gameVel = 12;
+        gameVel = 1.2;
         contenedor.classList.add("mediodia");
     }else if(score == 10) {
         gameVel = 1.5;
@@ -389,11 +389,11 @@ function GanarPuntos() {
     }
     else if (score == 30) {
         gameVel = 2;
-        contenedor.classList.add("noche");
+        contenedor.classList.add("mediodia");
     }
     else if (score == 40) {
         gameVel = 2.2
-        contenedor.classList.add("noche");
+        contenedor.classList.add("tarde");
     }
     else if (score == 50) {
         gameVel = 2.5;
