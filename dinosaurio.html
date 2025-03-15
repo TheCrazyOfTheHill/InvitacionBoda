@@ -32,14 +32,21 @@ body{
 }
 
 .mediodia {
-    background-color: #ffdcf3;
+    /*background-color: #ffdcf3;*/
+    background-color: #ff4500;
 }
 
 .tarde {
-    background-color: #ffadad;
+    /*background-color: #ffadad;*/
+    background-color: #b22222;
 }
 
 .noche {
+    /*background-color: #aca8c7;*/
+    background-color: #ff3c00;
+}
+
+.inferno {
     background-color: #aca8c7;
 }
 
@@ -380,10 +387,12 @@ function GanarPuntos() {
     if(score == 5){
         gameVel = 1.2;
         contenedor.classList.add("mediodia");
-    }else if(score == 10) {
+    }
+    else if (score == 10) {
         gameVel = 1.5;
         contenedor.classList.add("tarde");
-    } else if(score == 20) {
+    }
+    else if (score == 20) {
         gameVel = 1.8;
         contenedor.classList.add("noche");
     }
@@ -398,6 +407,10 @@ function GanarPuntos() {
     else if (score == 50) {
         gameVel = 2.5;
         contenedor.classList.add("noche");
+    }
+    else if (score == 100) {
+        gameVel = 3;
+        contenedor.classList.add("inferno");
     }
     suelo.style.animationDuration = (3/gameVel)+"s";
 }

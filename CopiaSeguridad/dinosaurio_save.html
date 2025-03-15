@@ -146,6 +146,18 @@ body{
     }
 }
 
+.jump-button {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 18px;
+    background: #d48871;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
 
     </style>
 </head>
@@ -162,6 +174,7 @@ body{
     </div>
 
     <div class="game-over">GAME OVER</div>
+    <button class="jump-button" onclick="Saltar()">Jump</button>
     
 
 <script>
@@ -365,13 +378,25 @@ function GanarPuntos() {
     score++;
     textoScore.innerText = score;
     if(score == 5){
-        gameVel = 1.5;
+        gameVel = 1.2;
         contenedor.classList.add("mediodia");
     }else if(score == 10) {
-        gameVel = 2;
+        gameVel = 1.5;
         contenedor.classList.add("tarde");
     } else if(score == 20) {
-        gameVel = 3;
+        gameVel = 1.8;
+        contenedor.classList.add("noche");
+    }
+    else if (score == 30) {
+        gameVel = 2;
+        contenedor.classList.add("mediodia");
+    }
+    else if (score == 40) {
+        gameVel = 2.2
+        contenedor.classList.add("tarde");
+    }
+    else if (score == 50) {
+        gameVel = 2.5;
         contenedor.classList.add("noche");
     }
     suelo.style.animationDuration = (3/gameVel)+"s";
