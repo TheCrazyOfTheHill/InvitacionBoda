@@ -114,6 +114,20 @@ body{
     background: url(img/nadadora.png) no-repeat;
 }
 
+.dron{
+    width: 46px;
+    height: 96px;
+
+    background: url(img/dron.png) no-repeat;
+}
+
+.pareja{
+    width: 46px;
+    height: 59px;
+
+    background: url(img/pareja.png) no-repeat;
+}
+
 .nube{
     width: 92px;
     height: 26px;
@@ -156,16 +170,17 @@ body{
 }
 
 .wedding{
-    width: 100px;
-    height: 30px;
+    width: auto;
+    height: auto;
+    white-space: nowrap;
 
     position: absolute;
-    top: 50%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     z-index: 10;
 
-    color: #ff69b4; /* Color bonito (rosa) */
+    color: #ffb6c1; /* Rosa pastel */
     font-family: Verdana;
     font-size: 30px;
     font-weight: bold;
@@ -367,9 +382,11 @@ function CrearObstaculo() {
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("cactus");
     randval = Math.random()
-    if (randval > 0.75) { obstaculo.classList.add("cactus2") }
-    else if (randval > 0.5) { obstaculo.classList.add("nadadora") }
-    else if (randval > 0.25) { obstaculo.classList.add("surfer") };
+    if (randval > 0.9) { obstaculo.classList.add("cactus2") }
+    else if (randval > 0.75) { obstaculo.classList.add("nadadora") }
+    else if (randval > 0.6) { obstaculo.classList.add("surfer") }
+    else if (randval > 0.35) { obstaculo.classList.add("dron") }
+    else if (randval > 0.1) { obstaculo.classList.add("pareja") };
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
