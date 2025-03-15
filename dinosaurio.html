@@ -101,15 +101,15 @@ body{
 }
 
 .surfer{
-    width: 98px;
-    height: 66px;
+    width: 46px;
+    height: 96px;
 
     background: url(img/surfer.png) no-repeat;
 }
 
 .nadadora{
-    width: 98px;
-    height: 66px;
+    width: 46px;
+    height: 96px;
 
     background: url(img/nadadora.png) no-repeat;
 }
@@ -347,7 +347,10 @@ function CrearObstaculo() {
     var obstaculo = document.createElement("div");
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("cactus");
-    if (Math.random() > 0.5) obstaculo.classList.add("cactus2");
+    randval = Math.random()
+    if (randval > 0.75) { obstaculo.classList.add("cactus2") }
+    else if (randval > 0.5) { obstaculo.classList.add("nadadora") }
+    else if (randval > 0.25) { obstaculo.classList.add("surfer") };
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
