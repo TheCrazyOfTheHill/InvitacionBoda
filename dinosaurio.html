@@ -32,19 +32,19 @@ body{
 }
 
 .mediodia {
-    background-color: #ffdcf3;
+    background-color: #1a1a40 /*#ffdcf3*/;
 }
 
 .tarde {
-    background-color: #ffadad;
+    background-color: #2c2c54;/* #ffadad;*/
 }
 
 .noche {
-    background-color: #aca8c7;
+    background-color: #0d1b2a;/*#aca8c7;*/
 }
 
 .inferno {
-    background-color: #ff4500;
+    background-color: #3d348b;/*#ff4500;*/
 }
 
 .dino {
@@ -385,19 +385,20 @@ function GanarPuntos() {
         gameVel = 1.2;
         contenedor.classList.add("mediodia");
     }
-
     else if (score == 8) {
         gameVel = 0.5;
     }
     else if (score == 10) {
         gameVel = 1.5;
+        contenedor.classList.add("tarde");
     }
     else if (score == 20) {
         gameVel = 1.8;
-        contenedor.classList.add("tarde");
+        contenedor.classList.add("noche");
     }
     else if (score == 30) {
         gameVel = 2;
+        contenedor.classList.add("inferno");
     }
     else if (score == 40) {
         gameVel = 2.2
