@@ -56,7 +56,7 @@ body{
     left: 42px;
     z-index: 2;
 
-    background: url(img/dino2.png) repeat-x 0px 0px;
+    background: url(img/llama2.png) repeat-x 0px 0px;
     background-size: 336px 84px;
     background-position-x: 0px;
 
@@ -91,13 +91,27 @@ body{
     left: 600px;
     z-index: 1;
 
-    background: url(img/nadadora.png) no-repeat;
+    background: url(img/cactus1.png) no-repeat;
 }
 .cactus2{
-    width: 46px;
-    height: 96px;
+    width: 98px;
+    height: 66px;
+
+    background: url(img/cactus2.png) no-repeat;
+}
+
+.surfer{
+    width: 98px;
+    height: 66px;
 
     background: url(img/surfer.png) no-repeat;
+}
+
+.nadadora{
+    width: 98px;
+    height: 66px;
+
+    background: url(img/nadadora.png) no-repeat;
 }
 
 .nube{
@@ -333,7 +347,10 @@ function CrearObstaculo() {
     var obstaculo = document.createElement("div");
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("cactus");
-    if(Math.random() > 0.5) obstaculo.classList.add("cactus2");
+    randval = Math.dandom()
+    if (randval > 0.75) { obstaculo.classList.add("cactus2") }
+    else if (randval > 0.5) { obstaculo.classList.add("surfer") }
+    else if (randval > 0.25) { obstaculo.classList.add("nadadora") };
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
