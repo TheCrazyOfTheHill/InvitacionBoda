@@ -77,7 +77,7 @@ body{
     bottom: 0;
     left: 0;
 
-    background: url(img/suelo2.png) repeat-x 0px 0px;
+    background: url(img/suelo.png) repeat-x 0px 0px;
     background-size: 50% 42px;
 
 }
@@ -104,9 +104,32 @@ body{
 .dronalto{
     width: 39px;
     height: 16px;
-    bottom: 150px;
+    bottom: 180px;
 
     background: url(img/dron.png) no-repeat;
+}
+
+.gaviotanormal{
+    width: 37px;
+    height: 22px;
+    bottom: 70px;
+
+    background: url(img/GAVIOTA.png) no-repeat;
+}
+
+.gaviotaalta{
+    width: 39px;
+    height: 16px;
+    bottom: 180px;
+
+    background: url(img/GAVIOTA.png) no-repeat;
+}
+
+.toro{
+    width: 90px;
+    height: 61px;
+
+    background: url(img/toro.png) no-repeat;
 }
 
 .p1{
@@ -435,25 +458,28 @@ function DecidirCrearNubes() {
         CrearNube();
     }
 }
-
+algas 20 / drones 5 / gaviotas 15 / personas 20 / toro 10 / palmeras 20 / novios 1 / surfer 9
 function CrearObstaculo() {
     var obstaculo = document.createElement("div");
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("algas");
     randval = Math.random()
-    if (randval > 0.93) { obstaculo.classList.add("dronnormal") }
-    else if (randval > 0.88) { obstaculo.classList.add("p1") }
-    else if (randval > 0.83) { obstaculo.classList.add("dronalto") }
-    else if (randval > 0.78) { obstaculo.classList.add("p2") }
-    else if (randval > 0.73) { obstaculo.classList.add("p3") }
-    else if (randval > 0.68) { obstaculo.classList.add("p4") }
-    else if (randval > 0.63) { obstaculo.classList.add("p5") }
-    else if (randval > 0.57) { obstaculo.classList.add("p6") }
-    else if (randval > 0.55) { obstaculo.classList.add("novios") }
-    else if (randval > 0.5) { obstaculo.classList.add("surfer") }
-    else if (randval > 0.42) { obstaculo.classList.add("PALMERA1") }
-    else if (randval > 0.33) { obstaculo.classList.add("PALMERA2") }
-    else if (randval > 0.25) { obstaculo.classList.add("PALMERA3") };
+    if (randval > 0.9) { obstaculo.classList.add("toro") }
+    else if (randval > 0.83) { obstaculo.classList.add("gaviotanormal") }
+    else if (randval > 0.75) { obstaculo.classList.add("gaviotaalto") }
+    else if (randval > 0.72) { obstaculo.classList.add("dronnormal") }
+    else if (randval > 0.69) { obstaculo.classList.add("dronalto") }
+    else if (randval > 0.66) { obstaculo.classList.add("p1") }
+    else if (randval > 0.63) { obstaculo.classList.add("p2") }
+    else if (randval > 0.6) { obstaculo.classList.add("p3") }
+    else if (randval > 0.57) { obstaculo.classList.add("p4") }
+    else if (randval > 0.54) { obstaculo.classList.add("p5") }
+    else if (randval > 0.51) { obstaculo.classList.add("p6") }
+    else if (randval > 0.5) { obstaculo.classList.add("novios") }
+    else if (randval > 0.41) { obstaculo.classList.add("surfer") }
+    else if (randval > 0.34) { obstaculo.classList.add("PALMERA1") }
+    else if (randval > 0.27) { obstaculo.classList.add("PALMERA2") }
+    else if (randval > 0.2) { obstaculo.classList.add("PALMERA3") };
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
