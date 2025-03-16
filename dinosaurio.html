@@ -104,7 +104,7 @@ body{
 .dronalto{
     width: 39px;
     height: 16px;
-    bottom: 180px;
+    bottom: 200px;
 
     background: url(img/dron.png) no-repeat;
 }
@@ -120,7 +120,7 @@ body{
 .gaviotaalta{
     width: 37px;
     height: 22px;
-    bottom: 180px;
+    bottom: 200px;
 
     background: url(img/GAVIOTA.png) no-repeat;
 }
@@ -527,24 +527,24 @@ function MoverNubes() {
 function GanarPuntos() {
     score++;
     textoScore.innerText = score;
-    if(score == 5){
+    if(score == 10){
         gameVel = 1.2;
         contenedor.classList.add("mediodia");
     }
-    else if (score == 10) {
+    else if (score == 20) {
         gameVel = 1.5;
     }
-    else if (score == 20) {
+    else if (score == 30) {
         gameVel = 1.8;
         contenedor.classList.add("tarde");
     }
-    else if (score == 30) {
+    else if (score == 40) {
         gameVel = 2;
     }
-    else if (score == 40) {
+    else if (score == 50) {
         gameVel = 2.2
     }
-    else if (score == 50) {
+    else if (score == 70) {
         gameVel = 2.5;
         contenedor.classList.add("noche");
     }
