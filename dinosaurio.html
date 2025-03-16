@@ -149,6 +149,13 @@ body{
     background: url(img/p6.png) no-repeat;
 }
 
+.novios{
+    width: 68px;
+    height: 83px;
+
+    background: url(img/novios.png) no-repeat;
+}
+
 .nube{
     width: 92px;
     height: 26px;
@@ -404,14 +411,15 @@ function CrearObstaculo() {
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("algas");
     randval = Math.random()
-    if (randval > 0.88) { obstaculo.classList.add("dronnormal") }
-    else if (randval > 0.77) { obstaculo.classList.add("p1") }
-    else if (randval > 0.66) { obstaculo.classList.add("dronalto") }
-    else if (randval > 0.55) { obstaculo.classList.add("p2") }
-    else if (randval > 0.44) { obstaculo.classList.add("p3") }
-    else if (randval > 0.33) { obstaculo.classList.add("p4") }
-    else if (randval > 0.22) { obstaculo.classList.add("p5") }
-    else if (randval > 0.11) { obstaculo.classList.add("p6") };
+    if (randval > 0.9) { obstaculo.classList.add("dronnormal") }
+    else if (randval > 0.8) { obstaculo.classList.add("p1") }
+    else if (randval > 0.7) { obstaculo.classList.add("dronalto") }
+    else if (randval > 0.6) { obstaculo.classList.add("p2") }
+    else if (randval > 0.5) { obstaculo.classList.add("p3") }
+    else if (randval > 0.4) { obstaculo.classList.add("p4") }
+    else if (randval > 0.3) { obstaculo.classList.add("p5") }
+    else if (randval > 0.2) { obstaculo.classList.add("p6") }
+    else if (randval > 0.1) { obstaculo.classList.add("novios") };
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
