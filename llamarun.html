@@ -195,6 +195,27 @@ body{
     background: url(img/PALMERA1.png) no-repeat;
 }
 
+.sombrilla{
+    width: 83px;
+    height: 92px;
+
+    background: url(img/sombrilla.png) no-repeat;
+}
+
+.bandera{
+    width: 39px;
+    height: 54px;
+
+    background: url(img/bandera.png) no-repeat;
+}
+
+.letrero{
+    width: 70px;
+    height: 65px;
+
+    background: url(img/letrero.png) no-repeat;
+}
+
 .PALMERA2{
     width: 50px;
     height: 97px;
@@ -207,6 +228,34 @@ body{
     height: 77px;
 
     background: url(img/PALMERA3.png) no-repeat;
+}
+
+.ciguena{
+    width: 49px;
+    height: 70px;
+
+    background: url(img/ciguena.png) no-repeat;
+}
+
+.cervantes{
+    width: 55px;
+    height: 95px;
+
+    background: url(img/cervantes.png) no-repeat;
+}
+
+.ayuntamiento{
+    width: 98px;
+    height: 73px;
+
+    background: url(img/ayuntamiento.png) no-repeat;
+}
+
+.quijote{
+    width: 98px;
+    height: 104px;
+
+    background: url(img/quijote.png) no-repeat;
 }
 
 .nube{
@@ -280,15 +329,15 @@ body{
 
 .jump-button {
     position: fixed;
-    bottom: 50%;
-    left: 90%;
+    bottom: 10%;
+    left: 80%;
     transform: translateX(-50%);
-    padding: 10px 20px;
+    padding: 40px 60px;
     font-size: 18px;
     background: #d48871;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
     </style>
@@ -464,22 +513,29 @@ function CrearObstaculo() {
     contenedor.appendChild(obstaculo);
     obstaculo.classList.add("algas");
     randval = Math.random()
-    if (randval > 0.9) { obstaculo.classList.add("toro") }
-    else if (randval > 0.83) { obstaculo.classList.add("gaviotaalta") }
-    else if (randval > 0.75) { obstaculo.classList.add("gaviotanormal") }
-    else if (randval > 0.72) { obstaculo.classList.add("dronnormal") }
-    else if (randval > 0.69) { obstaculo.classList.add("dronalto") }
-    else if (randval > 0.66) { obstaculo.classList.add("p1") }
-    else if (randval > 0.63) { obstaculo.classList.add("p2") }
-    else if (randval > 0.6) { obstaculo.classList.add("p3") }
-    else if (randval > 0.57) { obstaculo.classList.add("p4") }
-    else if (randval > 0.54) { obstaculo.classList.add("p5") }
-    else if (randval > 0.51) { obstaculo.classList.add("p6") }
-    else if (randval > 0.5) { obstaculo.classList.add("novios") }
-    else if (randval > 0.41) { obstaculo.classList.add("surfer") }
-    else if (randval > 0.34) { obstaculo.classList.add("PALMERA1") }
-    else if (randval > 0.27) { obstaculo.classList.add("PALMERA2") }
-    else if (randval > 0.2) { obstaculo.classList.add("PALMERA3") };
+    if (randval > 0.95) { obstaculo.classList.add("toro") }
+    else if (randval > 0.91) { obstaculo.classList.add("gaviotaalta") }
+    else if (randval > 0.87) { obstaculo.classList.add("gaviotanormal") }
+    else if (randval > 0.83) { obstaculo.classList.add("dronnormal") }
+    else if (randval > 0.79) { obstaculo.classList.add("dronalto") }
+    else if (randval > 0.75) { obstaculo.classList.add("p1") }
+    else if (randval > 0.71) { obstaculo.classList.add("p2") }
+    else if (randval > 0.67) { obstaculo.classList.add("p3") }
+    else if (randval > 0.63) { obstaculo.classList.add("p4") }
+    else if (randval > 0.59) { obstaculo.classList.add("p5") }
+    else if (randval > 0.55) { obstaculo.classList.add("p6") }
+    else if (randval > 0.51) { obstaculo.classList.add("novios") }
+    else if (randval > 0.47) { obstaculo.classList.add("surfer") }
+    else if (randval > 0.42) { obstaculo.classList.add("PALMERA1") }
+    else if (randval > 0.37) { obstaculo.classList.add("PALMERA2") }
+    else if (randval > 0.32) { obstaculo.classList.add("PALMERA3") }
+    else if (randval > 0.28) { obstaculo.classList.add("cervantes") }
+    else if (randval > 0.24) { obstaculo.classList.add("ciguena") }
+    else if (randval > 0.2) { obstaculo.classList.add("quijote") }
+    else if (randval > 0.16) { obstaculo.classList.add("ayuntamiento") }
+    else if (randval > 0.12) { obstaculo.classList.add("sombrilla") }
+    else if (randval > 0.08) { obstaculo.classList.add("bandera") }
+    else if (randval > 0.04) { obstaculo.classList.add("letrero") };
     obstaculo.posX = contenedor.clientWidth;
     obstaculo.style.left = contenedor.clientWidth+"px";
 
