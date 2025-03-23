@@ -261,7 +261,10 @@
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
             font-weight: 700;
-            filter: grayscale(100 %);
+        }
+
+        .grayscale {
+            filter: grayscale(100%);
             transition: filter 0.3s ease;
         }
 
@@ -585,6 +588,7 @@
                 } else {
                     if (IsCollision(dino, obstaculos[i], 10, 30, 15, 20)) {
                         GameOver();
+                        document.body.classList.add('grayscale');
                     }
                 }
             }
