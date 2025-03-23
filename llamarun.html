@@ -252,17 +252,22 @@
         }
 
         #refreshButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50; /* Color de fondo */
-            color: white;
-            border: none;
-            border-radius: 5px;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            position: fixed;
+            bottom: 5%;
+            left: 85%;
+            transform: translateX(-50%);
+            padding: 40px 60px;
+            font-size: 18px;
+            background: transparent;
+            border: 2px solid black;
+            border-radius: 0;
             cursor: pointer;
         }
 
             #refreshButton:hover {
-                background-color: #45a049; /* Color de fondo al pasar el ratón */
+                background-color: #45a049;
             }
 
 
@@ -337,6 +342,7 @@
 
     <div class="game-over">GAME OVER</div>
     <button class="jump-button" onclick="Saltar()">Saltar</button>
+    <button id="refreshButton" class="button">Recargar Página</button>
 
 
     <script>
@@ -598,8 +604,7 @@
         function DetectarColision() {
             for (var i = 0; i < obstaculos.length; i++) {
                 if (obstaculos[i].posX > dinoPosX + dino.clientWidth) {
-                    //EVADE
-                    break; //al estar en orden, no puede chocar con más
+                    break;
                 } else {
                     if (IsCollision(dino, obstaculos[i], 10, 30, 15, 20)) {
                         GameOver();
