@@ -25,7 +25,7 @@
             height: 280px;
             margin: 0 auto;
             position: relative;
-            background: linear-gradient(#b7d6c7, transparent) #ffe2d1; /*linear-gradient(#90ebff, white);*/
+            background: linear-gradient(#b7d6c7, transparent) #ffe2d1;
             transition: background-color 1s linear;
             overflow: hidden;
         }
@@ -251,12 +251,12 @@
             text-align: right;
         }
 
-        #refreshButton {
+        .refreshButton {
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
             position: fixed;
             bottom: 5%;
-            left: 85%;
+            left: 15%;
             transform: translateX(-50%);
             padding: 40px 60px;
             font-size: 18px;
@@ -266,7 +266,7 @@
             cursor: pointer;
         }
 
-            #refreshButton:hover {
+            .refreshButton:hover {
                 background-color: #45a049;
             }
 
@@ -342,7 +342,7 @@
 
     <div class="game-over">GAME OVER</div>
     <button class="jump-button" onclick="Saltar()">Saltar</button>
-    <button id="refreshButton" class="button">Recargar Página</button>
+    <button class="refreshButton" onclick="Refrescar()">Nuevo Juego</button>
 
 
     <script>
@@ -444,6 +444,12 @@
                 velY = impulso;
                 dino.classList.remove("dino-corriendo");
             }
+        }
+
+        function Refrescar() {
+            document.getElementById("refreshButton").addEventListener("click", function () {
+                location.reload();
+            });
         }
 
         function MoverDinosaurio() {
