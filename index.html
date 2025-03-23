@@ -132,7 +132,7 @@
             const hash = params.get("id");
 
             if (hash && invitados[hash]) {
-                document.getElementById("mensaje").innerHTML = `¡Hola, ${invitados[hash]}!`;
+                document.getElementById("mensaje").innerHTML = `<span style="font-size: 2em;">¡Hola, ${invitados[hash]}!</span>`;
                 document.getElementById("confirmacion").classList.remove("hidden");
             } else {
                 document.getElementById("mensaje").innerHTML = "Invitación no válida.";
