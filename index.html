@@ -43,22 +43,28 @@
                 transform: scale(1.1);
             }
 
-        .button_enviar {
-            font-family: 'Barlow Condensed', sans-serif;
-            display: inline-block;
-            padding: 15px 25px;
-            margin: 10px;
-            border: 2px solid black;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.3s;
-            text-transform: uppercase;
-            background-color: rgb(83, 164, 83);
-        }
+            .button.enviar {
+                font-family: 'Barlow Condensed', sans-serif;
+                display: inline-block;
+                padding: 15px 30px;
+                margin: 10px;
+                border: 2px solid #FF5722;
+                cursor: pointer;
+                font-size: 20px;
+                transition: 0.3s;
+                text-transform: uppercase;
+                background-color: #FF9800;
+                color: white;
+                transition: background-color 0.3s, transform 0.3s;
+            }
 
-            .button_enviar.selected {
-                background-color: rgb(195, 119, 66);
+            .button.enviar:hover {
+                background-color: #FF5722;  */
                 transform: scale(1.1);
+            }
+
+            #enviar-button.hidden {
+                display: none;
             }
 
         .hidden {
@@ -118,7 +124,6 @@
             if (hash && invitados[hash]) {
                 document.getElementById("mensaje").innerHTML = `¡Hola, ${invitados[hash]}!`;
                 document.getElementById("confirmacion").classList.remove("hidden");
-                document.getElementById("enviar-button").classList.remove("hidden");
             } else {
                 document.getElementById("mensaje").innerHTML = "Invitación no válida.";
             }
@@ -133,6 +138,7 @@
         function mostrarFormulario(confirma) {
             document.getElementById("detalles").classList.toggle("hidden", confirma !== 'si');
             mostrarMensajeConfirmacion(confirma);
+            document.getElementById("enviar-button").classList.remove("hidden");
         }
 
         function mostrarMensajeConfirmacion(respuesta) {
@@ -161,6 +167,42 @@
                 textoAlergias.textContent = "Alergias o restricciones del acompañante";
                 textoMenu.textContent = "Menú para el acompañante";
             }
+        }
+
+        function enviarFormulario() {
+            const asistencia = document.getElementById("asistencia").value;
+            const comida = document.getElementById("comida").value;
+            const alergenos = document.getElementById("alergenos").value;
+            const invitado = document.getElementById("invitado").value;
+            const comidaInvitado = document.getElementById("comida-invitado").value;
+            const alergenosInvitado = document.getElementById("alergenos-invitado").value;
+            const nombreAcompanante = document.getElementById("nombre-acompanante").value;
+
+            // Aquí puedes enviar los datos al servidor para guardarlos en la BBDD
+            // Ejemplo con fetch (asegurate de tener configurado tu backend para recibir estos datos)
+
+            fetch("/enviar-datos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    asistencia: asistencia,
+                    comida: comida,
+                    alergenos: alergenos,
+                    invitado: invitado,
+                    comidaInvitado: comidaInvitado,
+                    alergenosInvitado: alergenosInvitado,
+                    nombreAcompanante: nombreAcompanante
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Formulario enviado correctamente");
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
         }
     </script>
 </head>
@@ -209,10 +251,8 @@
                     <input type="text" id="alergenos-invitado" placeholder="Especifica si tiene alergias">
                 </div>
             </div>
-
             <br><br>
-            <button class="button_enviar" id="enviar-button">Enviar</button>
-
+            <button class="button enviar" id="enviar-button" onclick="enviarFormulario()">Enviar</button>
         </div>
     </div>
 </body>
