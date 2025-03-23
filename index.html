@@ -118,6 +118,20 @@
         function mostrarDetallesInvitado(invitado) {
             document.getElementById("extra-options").classList.toggle("hidden", invitado !== 'si');
         }
+
+        function actualizarNombreAcompanante() {
+            const nombreAcompanante = document.getElementById("nombre-acompanante").value;
+            const textoAlergias = document.getElementById("texto-alergias-invitado");
+            const textoMenu = document.getElementById("texto-menu-invitado");
+
+            if (nombreAcompanante) {
+                textoAlergias.textContent = `Alergias o restricciones de ${nombreAcompanante}`;
+                textoMenu.textContent = `Menú para ${nombreAcompanante}`;
+            } else {
+                textoAlergias.textContent = "Alergias o restricciones del acompañante";
+                textoMenu.textContent = "Menú para el acompañante";
+            }
+        }
     </script>
 </head>
 <body>
@@ -150,16 +164,16 @@
                 <div id="extra-options" class="hidden">
 
                     <h3>¿Cómo se llama tu acompañante?</h3>
-                    <input type="text" id="nombre-acompanante" placeholder="Nombre del acompañante">
+                    <input type="text" id="nombre-acompanante" placeholder="Nombre del acompañante" oninput="actualizarNombreAcompanante()">
 
-                    <h3>Menú para el acompañante</h3>
+                    <h3 id="texto-menu-invitado">Menú para el acompañante</h3>
                     <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="carne">Carne</button>
                     <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="pescado">Pescado</button>
                     <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="vegetariano">Vegetariano</button>
                     <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="infantil">Infantil</button>
                     <input type="hidden" id="comida-invitado">
 
-                    <h3>Alergias o restricciones del invitado</h3>
+                    <h3 id="texto-alergias-invitado">Alergias o restricciones del acompañante</h3>
                     <input type="text" id="alergenos-invitado" placeholder="Especifica si tiene alergias">
                 </div>
 
