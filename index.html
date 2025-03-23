@@ -12,7 +12,7 @@
             text-align: center;
             background-color: #fce4ec;
             padding: 20px;
-            text-transform: uppercase; /* Todo en mayúsculas */
+            text-transform: uppercase;
         }
 
         .container {
@@ -27,31 +27,17 @@
             display: inline-block;
             padding: 15px 25px;
             margin: 10px;
-            border: 2px solid black; /* Borde negro */
+            border: 2px solid black;
             cursor: pointer;
             font-size: 18px;
             transition: 0.3s;
-            text-transform: uppercase; /* Botones también en mayúsculas */
+            text-transform: uppercase;
+            background-color: rgb(247, 233, 100);
         }
 
             .button.selected {
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+                background-color: rgb(0, 226, 180);
                 transform: scale(1.1);
-            }
-
-            .button.si {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-            .button.no {
-                background-color: #f44336;
-                color: white;
-            }
-
-            .button.option {
-                background-color: #2196F3;
-                color: white;
             }
 
         .hidden {
@@ -99,30 +85,32 @@
 
         <div id="confirmacion" class="hidden">
             <h2>Confirma tu asistencia</h2>
-            <button class="button si confirmacion-button" onclick="mostrarFormulario('si'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="si">Sí</button>
-            <button class="button no confirmacion-button" onclick="mostrarFormulario('no'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="no">No</button>
+            <button class="button confirmacion-button" onclick="mostrarFormulario('si'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="si">Sí</button>
+            <button class="button confirmacion-button" onclick="mostrarFormulario('no'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="no">No</button>
             <input type="hidden" id="asistencia">
 
             <div id="detalles" class="hidden">
                 <h3>Elige tu menú</h3>
-                <button class="button option menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="carne">Carne</button>
-                <button class="button option menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="pescado">Pescado</button>
-                <button class="button option menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="vegetariano">Vegetariano</button>
+                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="carne">Carne</button>
+                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="pescado">Pescado</button>
+                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="vegetariano">Vegetariano</button>
+                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="infantil">Infantil</button>
                 <input type="hidden" id="comida">
 
                 <h3>Alergias o restricciones</h3>
                 <input type="text" id="alergenos" placeholder="Especifica si tienes alergias">
 
                 <h3>¿Llevarás acompañante?</h3>
-                <button class="button option invitado-button" onclick="mostrarDetallesInvitado('si'); toggleSelection(document.querySelectorAll('.invitado-button'), 'invitado')" data-value="si">Sí</button>
-                <button class="button option invitado-button" onclick="mostrarDetallesInvitado('no'); toggleSelection(document.querySelectorAll('.invitado-button'), 'invitado')" data-value="no">No</button>
+                <button class="button invitado-button" onclick="mostrarDetallesInvitado('si'); toggleSelection(document.querySelectorAll('.invitado-button'), 'invitado')" data-value="si">Sí</button>
+                <button class="button invitado-button" onclick="mostrarDetallesInvitado('no'); toggleSelection(document.querySelectorAll('.invitado-button'), 'invitado')" data-value="no">No</button>
                 <input type="hidden" id="invitado">
 
                 <div id="extra-options" class="hidden">
                     <h3>Menú para el invitado</h3>
-                    <button class="button option menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="carne">Carne</button>
-                    <button class="button option menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="pescado">Pescado</button>
-                    <button class="button option menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="vegetariano">Vegetariano</button>
+                    <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="carne">Carne</button>
+                    <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="pescado">Pescado</button>
+                    <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="vegetariano">Vegetariano</button>
+                    <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="infantil">Infantil</button>
                     <input type="hidden" id="comida-invitado">
 
                     <h3>Alergias o restricciones del invitado</h3>
@@ -130,7 +118,7 @@
                 </div>
 
                 <br><br>
-                <button class="button si">Enviar</button>
+                <button class="button">Enviar</button>
             </div>
         </div>
     </div>
