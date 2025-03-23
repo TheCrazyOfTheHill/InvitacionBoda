@@ -211,13 +211,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    // Mostrar el mensaje de confirmación
-                    document.getElementById("mensaje-confirmacion").classList.remove("hidden");
-
-                    // Opcional: Ocultar el botón de enviar después de enviar el formulario
+                    document.getElementById("mensaje-envio").classList.remove("hidden");
                     document.getElementById("enviar-button").classList.add("hidden");
-
-                    // Opcional: Desactivar el formulario para evitar múltiples envíos
                     document.getElementById("confirmacion").classList.add("hidden");
                 })
                 .catch(error => {
