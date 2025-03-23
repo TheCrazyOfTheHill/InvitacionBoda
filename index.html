@@ -113,6 +113,17 @@
 
         function mostrarFormulario(confirma) {
             document.getElementById("detalles").classList.toggle("hidden", confirma !== 'si');
+            mostrarMensajeConfirmacion(confirma);
+        }
+
+        function mostrarMensajeConfirmacion(respuesta) {
+            const mensajeConfirmacion = document.getElementById("mensaje-confirmacion");
+            if (respuesta === 'si') {
+                mensajeConfirmacion.textContent = "¡Gracias por confirmar tu asistencia! Estamos emocionados de verte.";
+            } else {
+                mensajeConfirmacion.textContent = "Lamentamos que no puedas acompañarnos, ¡esperamos verte pronto!";
+            }
+            mensajeConfirmacion.classList.remove("hidden");
         }
 
         function mostrarDetallesInvitado(invitado) {
@@ -141,9 +152,11 @@
 
         <div id="confirmacion" class="hidden">
             <h2>Confirma tu asistencia</h2>
-            <button class="button confirmacion-button" onclick="mostrarFormulario('si'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="si">Sí</button>
-            <button class="button confirmacion-button" onclick="mostrarFormulario('no'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="no">No</button>
+            <button class="button si confirmacion-button" onclick="mostrarFormulario('si'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="si">Sí</button>
+            <button class="button no confirmacion-button" onclick="mostrarFormulario('no'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="no">No</button>
             <input type="hidden" id="asistencia">
+
+            <div id="mensaje-confirmacion" class="hidden"></div>
 
             <div id="detalles" class="hidden">
                 <h3>Elige tu menú</h3>
