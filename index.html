@@ -18,7 +18,7 @@
         .container {
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
-            background: white;
+            background-color: #fce4ec;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -40,6 +40,24 @@
 
             .button.selected {
                 background-color: rgb(0, 226, 180);
+                transform: scale(1.1);
+            }
+
+        .button_enviar {
+            font-family: 'Barlow Condensed', sans-serif;
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            border: 2px solid black;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            background-color: rgb(83, 164, 83);
+        }
+
+            .button_enviar.selected {
+                background-color: rgb(195, 119, 66);
                 transform: scale(1.1);
             }
 
@@ -100,6 +118,7 @@
             if (hash && invitados[hash]) {
                 document.getElementById("mensaje").innerHTML = `¡Hola, ${invitados[hash]}!`;
                 document.getElementById("confirmacion").classList.remove("hidden");
+                document.getElementById("enviar-button").classList.remove("hidden");
             } else {
                 document.getElementById("mensaje").innerHTML = "Invitación no válida.";
             }
@@ -189,10 +208,11 @@
                     <h3 id="texto-alergias-invitado">Alergias o restricciones del acompañante</h3>
                     <input type="text" id="alergenos-invitado" placeholder="Especifica si tiene alergias">
                 </div>
-
-                <br><br>
-                <button class="button">Enviar</button>
             </div>
+
+            <br><br>
+            <button class="button_enviar" id="enviar-button">Enviar</button>
+
         </div>
     </div>
 </body>
