@@ -107,6 +107,19 @@
             width: 100%;
             max-width: 400px;
         }
+
+        #mensaje-confirmacion {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #4CAF50; /* Color verde de confirmación */
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+            #mensaje-confirmacion.hidden {
+                display: none;
+            }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -196,10 +209,18 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    alert("Formulario enviado correctamente");
+                    // Mostrar el mensaje de confirmación
+                    document.getElementById("mensaje-confirmacion").classList.remove("hidden");
+
+                    // Opcional: Ocultar el botón de enviar después de enviar el formulario
+                    document.getElementById("enviar-button").classList.add("hidden");
+
+                    // Opcional: Desactivar el formulario para evitar múltiples envíos
+                    document.getElementById("confirmacion").classList.add("hidden");
                 })
                 .catch(error => {
                     console.error("Error:", error);
+                    alert("Hubo un problema al enviar tus datos. Por favor, intenta nuevamente.");
                 });
         }
     </script>
@@ -251,6 +272,7 @@
             </div>
             <br><br>
             <button class="button enviar hidden" id="enviar-button" onclick="enviarFormulario()">Enviar</button>
+            <p id="mensaje-confirmacion" class="hidden">¡Gracias por enviar tus datos! 🎉</p>
         </div>
     </div>
 </body>
