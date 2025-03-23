@@ -5,330 +5,295 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Llama Run 3000</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
     <style>
 
-* {
-    padding: 0;
-    margin: 0;
-}
-
-body{
-    height: 100vh;
-    background: #584040;
-    display: flex;
-    align-items: center;
-}
-
-.contenedor {
-    width: 920px;
-    height: 280px;
-    margin: 0 auto;
-    
-    position: relative;
-
-    background: linear-gradient(#b7d6c7, transparent) #ffe2d1;/*linear-gradient(#90ebff, white);*/
-    transition: background-color 1s linear;
-    overflow: hidden;
-}
-
-.mediodia {
-    background-color: #ffdcf3;
-}
-
-.tarde {
-    background-color: #ffadad;
-}
-
-.noche {
-    background-color: #0d1b2a;
-}
-
-.inferno {
-    background-color: #ff4500;
-}
-
-.dino {
-    width: 84px;
-    height: 84px;
-
-    position: absolute;
-    bottom: 22px;
-    left: 42px;
-    z-index: 2;
-
-    background: url(img/llama.png) repeat-x 0px 0px;
-    background-size: 336px 84px;
-    background-position-x: 0px;
-
-}
-
-.dino-corriendo {
-    animation: animarDino 0.25s steps(2) infinite;
-}
-.dino-estrellado {
-    background-position-x: -252px;
-}
-
-.suelo {
-    width: 200%;
-    height: 42px;
-
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
-    background: url(img/suelo.png) repeat-x 0px 0px;
-    background-size: 50% 42px;
-
-}
-
-.algas{
-    width: 108px;
-    height: 39px;
-
-    position: absolute;
-    bottom: 16px;
-    left: 600px;
-    z-index: 1;
-
-    background: url(img/algas.png) no-repeat;
-}
-.dronnormal{
-    width: 39px;
-    height: 16px;
-    bottom: 70px;
-
-    background: url(img/dron.png) no-repeat;
-}
-
-.dronalto{
-    width: 39px;
-    height: 16px;
-    bottom: 200px;
-
-    background: url(img/dron.png) no-repeat;
-}
-
-.gaviotanormal{
-    width: 37px;
-    height: 22px;
-    bottom: 70px;
-
-    background: url(img/GAVIOTA.png) no-repeat;
-}
-
-.gaviotaalta{
-    width: 37px;
-    height: 22px;
-    bottom: 180px;
-
-    background: url(img/GAVIOTA.png) no-repeat;
-}
-
-.toro{
-    width: 90px;
-    height: 61px;
-
-    background: url(img/toro.png) no-repeat;
-}
-
-.p1{
-    width: 39px;
-    height: 84px;
-
-    background: url(img/p1.png) no-repeat;
-}
-
-.p2{
-    width: 33px;
-    height: 80px;
-
-    background: url(img/p2.png) no-repeat;
-}
-
-.p3{
-    width: 47px;
-    height: 80px;
-
-    background: url(img/p3.png) no-repeat;
-}
-
-.p4{
-    width: 40px;
-    height: 80px;
-
-    background: url(img/p4.png) no-repeat;
-}
-
-.p5{
-    width: 40px;
-    height: 83px;
-
-    background: url(img/p5.png) no-repeat;
-}
-
-.p6{
-    width: 42px;
-    height: 85px;
-
-    background: url(img/p6.png) no-repeat;
-}
-
-.surfer{
-    width: 46px;
-    height: 96px;
-
-    background: url(img/surfer.png) no-repeat;
-}
-
-.novios{
-    width: 68px;
-    height: 83px;
-
-    background: url(img/novios.png) no-repeat;
-}
-
-.PALMERA1{
-    width: 71px;
-    height: 97px;
-
-    background: url(img/PALMERA1.png) no-repeat;
-}
-
-.sombrilla{
-    width: 83px;
-    height: 92px;
-
-    background: url(img/sombrilla.png) no-repeat;
-}
-
-.bandera{
-    width: 39px;
-    height: 54px;
-
-    background: url(img/bandera.png) no-repeat;
-}
-
-.letrero{
-    width: 70px;
-    height: 65px;
-
-    background: url(img/letrero.png) no-repeat;
-}
-
-.PALMERA2{
-    width: 50px;
-    height: 97px;
-
-    background: url(img/PALMERA2.png) no-repeat;
-}
-
-.PALMERA3{
-    width: 99px;
-    height: 77px;
-
-    background: url(img/PALMERA3.png) no-repeat;
-}
-
-.ciguena{
-    width: 49px;
-    height: 70px;
-
-    background: url(img/ciguenaza.png) no-repeat;
-}
-
-.cervantes{
-    width: 55px;
-    height: 95px;
-
-    background: url(img/cervantes.png) no-repeat;
-}
-
-.ayuntamiento{
-    width: 98px;
-    height: 73px;
-
-    background: url(img/ayuntamiento.png) no-repeat;
-}
-
-.quijote{
-    width: 98px;
-    height: 104px;
-
-    background: url(img/quijotazo.png) no-repeat;
-}
-
-.nube{
-    width: 92px;
-    height: 26px;
-
-    position: absolute;
-    z-index: 0;
-
-    background: url(img/nube.png) no-repeat;
-    background-size: 92px 26px;
-}
-
-.score{
-    width: 100px;
-    height: 30px;
-
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    z-index: 10;
-
-    color: #d48871;
-    font-family: Verdana;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: right;
-}
-
-.game-over{
-    display: none;
-
-    position: absolute;
-    width: 100%;
-
-
-    text-align: center;
-    color: #7e928b;
-    font-size: 30px;
-    font-family: Verdana;
-    font-weight: 700;
-}
-
-.wedding img {
-    width: 200px; /* Ajusta el tamaño de la imagen */
-    height: auto;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%); /* Para centrar la imagen */
-    z-index: 10;
-}
-
-@keyframes animarDino{
-    from{
-        background-position-x: -84px;
-    }
-    to{
-        background-position-x: -252px;
-    }
-}
-
-.jump-button {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    transform: translateX(-50%);
-    padding: 40px 60px;
-    font-size: 18px;
-    background: rgba(212, 136, 113, 1);
-    border: 10px;
-}
-
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100vh;
+            background: #584040;
+            display: flex;
+            align-items: center;
+        }
+
+        .contenedor {
+            width: 920px;
+            height: 280px;
+            margin: 0 auto;
+            position: relative;
+            background: linear-gradient(#b7d6c7, transparent) #ffe2d1; /*linear-gradient(#90ebff, white);*/
+            transition: background-color 1s linear;
+            overflow: hidden;
+        }
+
+        .mediodia {
+            background-color: #ffdcf3;
+        }
+
+        .tarde {
+            background-color: #ffadad;
+        }
+
+        .noche {
+            background-color: #0d1b2a;
+        }
+
+        .inferno {
+            background-color: #ff4500;
+        }
+
+        .dino {
+            width: 84px;
+            height: 84px;
+            position: absolute;
+            bottom: 22px;
+            left: 42px;
+            z-index: 2;
+            background: url(img/llama.png) repeat-x 0px 0px;
+            background-size: 336px 84px;
+            background-position-x: 0px;
+        }
+
+        .dino-corriendo {
+            animation: animarDino 0.25s steps(2) infinite;
+        }
+
+        .dino-estrellado {
+            background-position-x: -252px;
+        }
+
+        .suelo {
+            width: 200%;
+            height: 42px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: url(img/suelo.png) repeat-x 0px 0px;
+            background-size: 50% 42px;
+        }
+
+        .algas {
+            width: 108px;
+            height: 39px;
+            position: absolute;
+            bottom: 16px;
+            left: 600px;
+            z-index: 1;
+            background: url(img/algas.png) no-repeat;
+        }
+
+        .dronnormal {
+            width: 39px;
+            height: 16px;
+            bottom: 70px;
+            background: url(img/dron.png) no-repeat;
+        }
+
+        .dronalto {
+            width: 39px;
+            height: 16px;
+            bottom: 200px;
+            background: url(img/dron.png) no-repeat;
+        }
+
+        .gaviotanormal {
+            width: 37px;
+            height: 22px;
+            bottom: 70px;
+            background: url(img/GAVIOTA.png) no-repeat;
+        }
+
+        .gaviotaalta {
+            width: 37px;
+            height: 22px;
+            bottom: 180px;
+            background: url(img/GAVIOTA.png) no-repeat;
+        }
+
+        .toro {
+            width: 90px;
+            height: 61px;
+            background: url(img/toro.png) no-repeat;
+        }
+
+        .p1 {
+            width: 39px;
+            height: 84px;
+            background: url(img/p1.png) no-repeat;
+        }
+
+        .p2 {
+            width: 33px;
+            height: 80px;
+            background: url(img/p2.png) no-repeat;
+        }
+
+        .p3 {
+            width: 47px;
+            height: 80px;
+            background: url(img/p3.png) no-repeat;
+        }
+
+        .p4 {
+            width: 40px;
+            height: 80px;
+            background: url(img/p4.png) no-repeat;
+        }
+
+        .p5 {
+            width: 40px;
+            height: 83px;
+            background: url(img/p5.png) no-repeat;
+        }
+
+        .p6 {
+            width: 42px;
+            height: 85px;
+            background: url(img/p6.png) no-repeat;
+        }
+
+        .surfer {
+            width: 46px;
+            height: 96px;
+            background: url(img/surfer.png) no-repeat;
+        }
+
+        .novios {
+            width: 68px;
+            height: 83px;
+            background: url(img/novios.png) no-repeat;
+        }
+
+        .PALMERA1 {
+            width: 71px;
+            height: 97px;
+            background: url(img/PALMERA1.png) no-repeat;
+        }
+
+        .sombrilla {
+            width: 83px;
+            height: 92px;
+            background: url(img/sombrilla.png) no-repeat;
+        }
+
+        .bandera {
+            width: 39px;
+            height: 54px;
+            background: url(img/bandera.png) no-repeat;
+        }
+
+        .letrero {
+            width: 70px;
+            height: 65px;
+            background: url(img/letrero.png) no-repeat;
+        }
+
+        .PALMERA2 {
+            width: 50px;
+            height: 97px;
+            background: url(img/PALMERA2.png) no-repeat;
+        }
+
+        .PALMERA3 {
+            width: 99px;
+            height: 77px;
+            background: url(img/PALMERA3.png) no-repeat;
+        }
+
+        .ciguena {
+            width: 49px;
+            height: 70px;
+            background: url(img/ciguenaza.png) no-repeat;
+        }
+
+        .cervantes {
+            width: 55px;
+            height: 95px;
+            background: url(img/cervantes.png) no-repeat;
+        }
+
+        .ayuntamiento {
+            width: 98px;
+            height: 73px;
+            background: url(img/ayuntamiento.png) no-repeat;
+        }
+
+        .quijote {
+            width: 98px;
+            height: 104px;
+            background: url(img/quijotazo.png) no-repeat;
+        }
+
+        .nube {
+            width: 92px;
+            height: 26px;
+            position: absolute;
+            z-index: 0;
+            background: url(img/nube.png) no-repeat;
+            background-size: 92px 26px;
+        }
+
+        .score {
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            z-index: 10;
+            color: #d48871;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .game-over {
+            display: none;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            color: #7e928b;
+            font-size: 30px;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .wedding img {
+            width: 200px; /* Ajusta el tamaño de la imagen */
+            height: auto;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%); /* Para centrar la imagen */
+            z-index: 10;
+        }
+
+        @keyframes animarDino {
+            from {
+                background-position-x: -84px;
+            }
+
+            to {
+                background-position-x: -252px;
+            }
+        }
+
+        .jump-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            transform: translateX(-50%);
+            padding: 40px 60px;
+            font-size: 18px;
+            background: rgba(212, 136, 113, 1);
+            border: 10px;
+        }
     </style>
 </head>
 <body>
