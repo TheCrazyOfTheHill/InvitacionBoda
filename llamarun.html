@@ -619,7 +619,7 @@
         function GameOver() {
             Estrellarse();
             gameOver.style.display = "block";
-            if (maxscore > score) {
+            if (maxscore < score) {
                 maxscore = score;
             }
         }
