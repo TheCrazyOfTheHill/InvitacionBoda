@@ -251,6 +251,21 @@
             text-align: right;
         }
 
+        #refreshButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50; /* Color de fondo */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            #refreshButton:hover {
+                background-color: #45a049; /* Color de fondo al pasar el ratón */
+            }
+
+
         .game-over {
             display: none;
             position: absolute;
@@ -589,6 +604,7 @@
                     if (IsCollision(dino, obstaculos[i], 10, 30, 15, 20)) {
                         GameOver();
                         document.body.classList.add('grayscale');
+                        <button id="refreshButton" class="button">Recargar Página</button>
                     }
                 }
             }
