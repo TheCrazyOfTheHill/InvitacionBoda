@@ -432,13 +432,6 @@
             textomaxScore = document.querySelector(".maxscore");
             dino = document.querySelector(".dino");
             document.addEventListener("keydown", HandleKeyDown);
-            window.onload = function () {
-                let storedScore = localStorage.getItem("score");
-                if (storedScore) {
-                    maxscore = parseInt(storedScore);
-                    document.querySelector(".maxscore").innerText = `Récord: ${maxscore}`;
-                }
-            };
         }
 
         function Update() {
@@ -470,7 +463,6 @@
         }
 
         function Refrescar() {
-            localStorage.setItem("maxscore", maxscore);
             location.reload();
         }
 
