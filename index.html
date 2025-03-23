@@ -47,13 +47,16 @@
             display: none;
         }
 
-        .alergenos-title {
-            font-size: 24px;
-            background-color: rgb(247, 233, 100);
+        #alergenos {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 18px;
             padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #333;
             border-radius: 5px;
-            color: #333;
-            font-weight: bold;
+            background-color: rgb(247, 233, 100);
+            width: 100%;
+            max-width: 400px;
         }
     </style>
     <script>
@@ -109,9 +112,7 @@
                 <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="infantil">Infantil</button>
                 <input type="hidden" id="comida">
 
-                <div class="alergenos-title">
-                    <h3>Alergias o restricciones</h3>
-                </div>
+                <h3>Alergias o restricciones</h3>
                 <input type="text" id="alergenos" placeholder="Especifica si tienes alergias">
 
                 <h3>¿Llevarás acompañante?</h3>
@@ -127,9 +128,7 @@
                     <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="infantil">Infantil</button>
                     <input type="hidden" id="comida-invitado">
 
-                    <div class="alergenos-title">
-                        <h3>Alergias o restricciones del invitado</h3>
-                    </div>
+                    <h3>Alergias o restricciones del invitado</h3>
                     <input type="text" id="alergenos-invitado" placeholder="Especifica si tiene alergias">
                 </div>
 
