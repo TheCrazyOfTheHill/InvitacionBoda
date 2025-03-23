@@ -266,10 +266,11 @@
         }
 
         .refreshButton {
+            display: none;
             font-family: 'Barlow Condensed', sans-serif;
             text-transform: uppercase;
             position: fixed;
-            bottom: 40%;
+            top: 10%;
             left: 85%;
             transform: translateX(-50%);
             padding: 20px 40px;
@@ -357,7 +358,6 @@
     <button class="jump-button" onclick="Saltar()">Saltar</button>
     <button class="refreshButton" onclick="Refrescar()">Nuevo Juego</button>
 
-
     <script>
 
         //****** GAME LOOP ********//
@@ -432,6 +432,13 @@
             textomaxScore = document.querySelector(".maxscore");
             dino = document.querySelector(".dino");
             document.addEventListener("keydown", HandleKeyDown);
+            window.onload = function () {
+                let storedScore = localStorage.getItem("maxscore");
+                if (storedScore) {
+                    maxscore = parseInt(storedScore);
+                    document.querySelector(".maxscore").innerText = `Récord: ${maxscore}`;
+                }
+            };
         }
 
         function Update() {
@@ -463,6 +470,7 @@
         }
 
         function Refrescar() {
+            localStorage.setItem("maxscore", maxscore);
             location.reload();
         }
 
@@ -623,6 +631,7 @@
             }
             Estrellarse();
             gameOver.style.display = "block";
+            Refrescar.style.display = "block";
         }
 
         function DetectarColision() {
