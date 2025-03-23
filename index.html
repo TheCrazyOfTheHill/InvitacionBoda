@@ -119,9 +119,9 @@
         function mostrarMensajeConfirmacion(respuesta) {
             const mensajeConfirmacion = document.getElementById("mensaje-confirmacion");
             if (respuesta === 'si') {
-                mensajeConfirmacion.textContent = "¡Gracias por confirmar tu asistencia! Estamos emocionados de verte.";
+                mensajeConfirmacion.innerHTML = "¡Gracias por confirmar tu asistencia! Estamos emocionados de verte.";
             } else {
-                mensajeConfirmacion.textContent = "😔<br>Lamentamos que no puedas acompañarnos, ¡esperamos verte pronto!";
+                mensajeConfirmacion.innerHTML = "😔<br>Lamentamos que no puedas acompañarnos, ¡esperamos verte pronto!";
             }
             mensajeConfirmacion.classList.remove("hidden");
         }
