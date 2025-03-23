@@ -57,7 +57,7 @@
             }
 
             .button.enviar:hover {
-                background-color: #FF5722;  */
+                background-color: #FF5722;
                 transform: scale(1.1);
             }
 
@@ -142,7 +142,7 @@
         function mostrarMensajeConfirmacion(respuesta) {
             const mensajeConfirmacion = document.getElementById("mensaje-confirmacion");
             if (respuesta === 'si') {
-                mensajeConfirmacion.innerHTML = "¡Gracias por confirmar tu asistencia! Estamos emocionados de verte.";
+                mensajeConfirmacion.innerHTML = "<br>¡Gracias por confirmar tu asistencia! Estamos emocionados de verte.";
             } else {
                 mensajeConfirmacion.innerHTML = "<br><span style='font-size: 3em;'>😔</span><br><br>Lamentamos que no puedas acompañarnos<br>¡Esperamos verte pronto!";
             }
@@ -248,9 +248,9 @@
                     <h3 id="texto-alergias-invitado">Alergias o restricciones del acompañante</h3>
                     <input type="text" id="alergenos-invitado" placeholder="Especifica si tiene alergias">
                 </div>
-                <br><br>
-                <button class="button enviar" id="enviar-button" onclick="enviarFormulario()">Enviar</button>
             </div>
+            <br><br>
+            <button class="button enviar hidden" id="enviar-button" onclick="enviarFormulario()">Enviar</button>
         </div>
     </div>
 </body>
