@@ -154,7 +154,7 @@
         function mostrarMensajeConfirmacion(respuesta) {
             const mensajeConfirmacion = document.getElementById("mensaje-confirmacion");
             if (respuesta === 'si') {
-                mensajeConfirmacion.innerHTML = "<br>¡Gracias por confirmar tu asistencia! Estamos emocionados de verte.";
+                mensajeConfirmacion.innerHTML = "<br>¡Gracias por confirmar tu asistencia!<br>Estamos emocionados de verte";
             } else {
                 mensajeConfirmacion.innerHTML = "<br><span style='font-size: 3em;'>😔</span><br><br>Lamentamos que no puedas acompañarnos<br>¡Esperamos verte pronto!";
             }
@@ -236,8 +236,7 @@
                 <h3>Elige tu menú</h3>
                 <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="carne">Carne</button>
                 <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="pescado">Pescado</button>
-                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="vegetariano">Vegetariano</button>
-                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="infantil">Infantil</button>
+                <button class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="vegetariano">Vegano</button>
                 <input type="hidden" id="comida">
 
                 <h3>Alergias o restricciones</h3>
