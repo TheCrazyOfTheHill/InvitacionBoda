@@ -4,72 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación de Boda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fce4ec;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .button.si {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .button.no {
+                background-color: #f44336;
+                color: white;
+            }
+
+            .button.option {
+                background-color: #2196F3;
+                color: white;
+            }
+
+        .hidden {
+            display: none;
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Lista de invitados con sus hashes
             const invitados = {
                 "abcd1234": "Juan Pérez",
                 "efgh5678": "María Gómez",
                 "ijkl9012": "Carlos López"
             };
 
-            // Obtener el hash desde la URL
             const params = new URLSearchParams(window.location.search);
             const hash = params.get("id");
 
-            // Validar el hash y mostrar el nombre del invitado
             if (hash && invitados[hash]) {
                 document.getElementById("mensaje").innerHTML = `¡Hola, ${invitados[hash]}!`;
-                document.getElementById("confirmacion").style.display = "block";
+                document.getElementById("confirmacion").classList.remove("hidden");
             } else {
                 document.getElementById("mensaje").innerHTML = "Invitación no válida.";
             }
         });
 
-        function mostrarFormulario() {
-            const confirmacion = document.getElementById("asistencia").value;
-            if (confirmacion === "si") {
-                document.getElementById("detalles").style.display = "block";
-            } else {
-                document.getElementById("detalles").style.display = "none";
-            }
+        function mostrarFormulario(confirma) {
+            document.getElementById("detalles").classList.toggle("hidden", confirma !== 'si');
         }
     </script>
 </head>
 <body>
-    <h1>¡Nos Casamos!</h1>
-    <p id="mensaje">Cargando...</p>
+    <div class="container">
+        <h1>¡Nos Casamos!</h1>
+        <p id="mensaje">Cargando...</p>
 
-    <div id="confirmacion" style="display: none;">
-        <h2>Confirma tu asistencia</h2>
-        <form>
-            <label for="asistencia">¿Asistirás?</label>
-            <select id="asistencia" onchange="mostrarFormulario()">
-                <option value="">Selecciona</option>
-                <option value="si">Sí</option>
-                <option value="no">No</option>
-            </select>
+        <div id="confirmacion" class="hidden">
+            <h2>Confirma tu asistencia</h2>
+            <button class="button si" onclick="mostrarFormulario('si')">Sí</button>
+            <button class="button no" onclick="mostrarFormulario('no')">No</button>
 
-            <div id="detalles" style="display: none;">
-                <label for="comida">Elige tu menú</label>
-                <select id="comida">
-                    <option value="carne">Carne</option>
-                    <option value="pescado">Pescado</option>
-                    <option value="vegetariano">Vegetariano</option>
-                </select>
+            <div id="detalles" class="hidden">
+                <h3>Elige tu menú</h3>
+                <button class="button option" onclick="document.getElementById('comida').value='carne'">Carne</button>
+                <button class="button option" onclick="document.getElementById('comida').value='pescado'">Pescado</button>
+                <button class="button option" onclick="document.getElementById('comida').value='vegetariano'">Vegetariano</button>
+                <input type="hidden" id="comida">
 
-                <label for="alergenos">Alergias o restricciones alimentarias</label>
+                <h3>Alergias o restricciones</h3>
                 <input type="text" id="alergenos" placeholder="Especifica si tienes alergias">
 
-                <label for="invitado">¿Llevarás acompañante?</label>
-                <select id="invitado">
-                    <option value="si">Sí</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
+                <h3>¿Llevarás acompañante?</h3>
+                <button class="button option" onclick="document.getElementById('invitado').value='si'">Sí</button>
+                <button class="button option" onclick="document.getElementById('invitado').value='no'">No</button>
+                <input type="hidden" id="invitado">
 
-            <button type="submit">Enviar</button>
-        </form>
+                <br><br>
+                <button class="button si">Enviar</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
