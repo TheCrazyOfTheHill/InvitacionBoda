@@ -289,7 +289,7 @@
             text-transform: uppercase;
             position: fixed;
             bottom: 5%;
-            right: 5%;
+            left: 95%;
             transform: translateX(-50%);
             padding: 40px 60px;
             font-size: 18px;
@@ -543,28 +543,28 @@
         function GanarPuntos() {
             score++;
             textoScore.innerText = score;
-            if (score == 10) {
+            if (score == 20) {
                 gameVel = 1.2;
                 contenedor.classList.add("mediodia");
             }
-            else if (score == 20) {
+            else if (score == 40) {
                 gameVel = 1.5;
             }
-            else if (score == 30) {
+            else if (score == 60) {
                 gameVel = 1.8;
                 contenedor.classList.add("tarde");
             }
-            else if (score == 40) {
+            else if (score == 80) {
                 gameVel = 2;
             }
-            else if (score == 50) {
+            else if (score == 100) {
                 gameVel = 2.2
             }
-            else if (score == 70) {
+            else if (score == 140) {
                 gameVel = 2.5;
                 contenedor.classList.add("noche");
             }
-            else if (score == 100) {
+            else if (score == 200) {
                 gameVel = 3;
                 contenedor.classList.add("inferno");
             }
