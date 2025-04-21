@@ -393,6 +393,8 @@
             time = new Date();
             Start();
             Loop();
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.play();
         }
 
         function Loop() {
@@ -473,6 +475,8 @@
         }
 
         function Saltar() {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.play();
             if (dinoPosY === sueloY) {
                 saltando = true;
                 velY = impulso;
