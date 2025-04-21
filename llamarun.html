@@ -387,6 +387,17 @@
         var time = new Date();
         var deltaTime = 0;
 
+        precargarImagenes([
+            'imagenes/toro.png', 'imagenes/gaviota.png',
+            'imagenes/dron.png', 'imagenes/p1.png', 
+            'imagenes/p2.png', 'imagenes/p3.png', 'imagenes/p4.png', 'imagenes/p5.png',
+            'imagenes/p6.png', 'imagenes/novios.png', 'imagenes/surfer.png', 
+            'imagenes/PALMERA1.png', 'imagenes/PALMERA2.png', 'imagenes/PALMERA3.png',
+            'imagenes/cervantes.png', 'imagenes/quijote.png', 'imagenes/ciguena.png',
+            'imagenes/ayuntamiento.png', 'imagenes/sombrilla.png', 'imagenes/bandera.png',
+            'imagenes/letrero.png'
+        ]);
+
         if (document.readyState === "complete" || document.readyState === "interactive") {
             setTimeout(Init, 1);
         } else {
@@ -538,6 +549,20 @@
             if (tiempoHastaNube <= 0) {
                 CrearNube();
             }
+        }
+
+        function precargarImagenes(imagenes) {
+            let loaded = 0;
+            const totalImagenes = imagenes.length;
+            const cargadas = [];
+            imagenes.forEach(src => {
+                const img = new Image();
+                img.src = src;
+                img.onload = function () {
+                    cargadas.push(src);
+                    loaded++;
+                };
+            });
         }
 
         function CrearObstaculo() {
