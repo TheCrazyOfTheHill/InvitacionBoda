@@ -337,6 +337,11 @@
 </head>
 <body>
 
+    <audio id="audioPlayer" autoplay>
+        <source id="audioSource" src="" type="audio/mp4">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
     <div class="contenedor">
 
         <div class="suelo"></div>
@@ -359,6 +364,19 @@
 
 
     <script>
+
+        const random = Math.random();
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSource = document.getElementById('audioSource');
+
+        if (random < 0.75) {
+            audioSource.src = 'audio/audio1.mp4';
+        } else {
+            audioSource.src = 'audio/audio2.mp4';
+        }
+
+        audioPlayer.load();
+        audioPlayer.play();
 
         //****** GAME LOOP ********//
 
