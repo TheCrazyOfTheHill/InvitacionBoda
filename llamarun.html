@@ -393,8 +393,6 @@
             time = new Date();
             Start();
             Loop();
-            const audioPlayer = document.getElementById('audioPlayer');
-            audioPlayer.play();
         }
 
         function Loop() {
@@ -639,6 +637,8 @@
         }
 
         function GameOver() {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.pause();
             if (maxscore < score) {
                 maxscore = score;
                 textomaxScore.innerText = "Récord: " + maxscore;
