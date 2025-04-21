@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, rgb(195, 207, 249), rgb(229, 159, 239));
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            padding: 20px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            padding: 20px;
+            display: inline-block;
+        }
+
+        .button {
+            font-family: 'Barlow Condensed', sans-serif;
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            border: 2px solid black;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            background-color: rgb(246, 179, 246);
+        }
+
+        .button.selected {
+            background-color: rgb(97, 179, 197);
+            transform: scale(1.1);
+        }
+
+        .button.enviar {
+            font-family: 'Barlow Condensed', sans-serif;
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            border: 2px solid;
+            cursor: pointer;
+            font-size: 20px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            background-color: rgb(230, 114, 220);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button.enviar:hover {
+            background-color: rgb(0, 209, 186);
+            transform: scale(1.1);
+        }
+
+        #enviar-button.hidden {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #alergenos {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            font-size: 18px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #333;
+            background-color: rgb(246, 179, 246);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #nombre-acompanante {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            font-size: 18px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #333;
+            background-color: rgb(246, 179, 246);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #alergenos-invitado {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            font-size: 18px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid #333;
+            background-color: rgb(246, 179, 246);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #mensaje-envio {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+        }
+
+        #mensaje-envio.hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const params = new URLSearchParams(window.location.search);
+            const hash = "{{ invitado.hash }}";
+
+            if (hash) {
+                document.getElementById("mensaje").innerHTML = `<span style="font-size: 2em;">¡Hola, {{ invitado.nombre }}!</span>`;
+                document.getElementById("confirmacion").classList.remove("hidden");
+                document.getElementById("asistencia").value = "{{ invitado.asistencia }}";
+                document.getElementById("comida").value = "{{ invitado.comida }}";
+                document.getElementById("alergenos").value = "{{ invitado.alergenos }}";
+                {% if invitado.asistencia == 'si' %}
+                    document.getElementById("asistencia-si").click();
+                {% endif %}
+                {% if invitado.comida is defined and invitado.comida %}
+                document.getElementById("comida-{{ invitado.comida }}").click();
+                {% endif %}
+            } else {
+                document.getElementById("mensaje").innerHTML = "Invitación no válida.";
+            }
+        });
+
+        function toggleSelection(buttonGroup, value) {
+            buttonGroup.forEach(button => button.classList.remove("selected"));
+            event.target.classList.add("selected");
+            document.getElementById(value).value = event.target.dataset.value;
+        }
+
+        function mostrarFormulario(confirma) {
+            document.getElementById("detalles").classList.toggle("hidden", confirma !== 'si');
+            mostrarMensajeConfirmacion(confirma);
+            document.getElementById("enviar-button").classList.remove("hidden");
+        }
+
+        function mostrarMensajeConfirmacion(respuesta) {
+            const mensajeConfirmacion = document.getElementById("mensaje-confirmacion");
+            if (respuesta === 'si') {
+                mensajeConfirmacion.innerHTML = "<br>¡Gracias por confirmar tu asistencia!<br>Estamos emocionados de verte";
+            } else {
+                mensajeConfirmacion.innerHTML = "<br><span style='font-size: 3em;'>😔</span><br><br>Lamentamos que no puedas acompañarnos<br>¡Esperamos verte pronto!";
+            }
+            mensajeConfirmacion.classList.remove("hidden");
+        }
+
+        function mostrarDetallesInvitado(invitado) {
+            document.getElementById("extra-options").classList.toggle("hidden", invitado !== 'si');
+        }
+
+        function actualizarNombreAcompanante() {
+            const nombreAcompanante = document.getElementById("nombre-acompanante").value;
+            const textoAlergias = document.getElementById("texto-alergias-invitado");
+            const textoMenu = document.getElementById("texto-menu-invitado");
+
+            if (nombreAcompanante) {
+                textoAlergias.textContent = `Alergias o restricciones de ${nombreAcompanante}`;
+                textoMenu.textContent = `Menú para ${nombreAcompanante}`;
+            } else {
+                textoAlergias.textContent = "Alergias o restricciones del acompañante";
+                textoMenu.textContent = "Menú para el acompañante";
+            }
+        }
+
+        function enviarFormulario() {
+            const asistencia = document.getElementById("asistencia").value;
+            const comida = document.getElementById("comida").value;
+            const alergenos = document.getElementById("alergenos").value;
+            const invitado = document.getElementById("invitado").value;
+            const comidaInvitado = document.getElementById("comida-invitado").value;
+            const alergenosInvitado = document.getElementById("alergenos-invitado").value;
+            const nombreAcompanante = document.getElementById("nombre-acompanante").value;
+
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "update-data",
+                    hash: "{{ invitado.hash }}",
+                    asistencia: asistencia,
+                    comida: comida,
+                    alergenos: alergenos,
+                    invitado: invitado,
+                    comidaInvitado: comidaInvitado,
+                    alergenosInvitado: alergenosInvitado,
+                    nombreAcompanante: nombreAcompanante
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("mensaje-envio").classList.remove("hidden");
+                    document.getElementById("enviar-button").classList.add("hidden");
+                    document.getElementById("confirmacion").classList.add("hidden");
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Hubo un problema al enviar tus datos. Por favor, intenta nuevamente.");
+                });
+        }
+    </script>
+</head>
+<body>
+
+<img src="img/GUILLELUCIA_ALTA.png" alt="LuciaGuille" style="display: block; margin: 0 auto; width: 300px; height: auto;">
+<div class="container">
+    <p id="mensaje">Cargando...</p>
+
+    <div id="confirmacion" class="hidden">
+        <h2>Confirma tu asistencia</h2>
+        <button id="asistencia-si" class="button si confirmacion-button" onclick="mostrarFormulario('si'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="si">Sí</button>
+        <button id="asistencia-no" class="button no confirmacion-button" onclick="mostrarFormulario('no'); toggleSelection(document.querySelectorAll('.confirmacion-button'), 'asistencia')" data-value="no">No</button>
+        <input type="hidden" id="asistencia">
+
+        <div id="mensaje-confirmacion" class="hidden"></div>
+
+        <div id="detalles" class="hidden">
+            <h3>Elige tu menú</h3>
+            <button id="comida-carne" class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="carne">Carne</button>
+            <button id="comida-pescado" class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="pescado">Pescado</button>
+            <button id="comida-vegano" class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="vegano">Vegano</button>
+            <button id="comida-infantil" class="button menu-button" onclick="toggleSelection(document.querySelectorAll('.menu-button'), 'comida')" data-value="infantil">Infantil</button>
+            <input type="hidden" id="comida">
+
+            <h3>Alergias o restricciones</h3>
+            <input type="text" id="alergenos" placeholder="Especifica si tienes alergias">
+
+            <h3>¿Llevarás acompañante?</h3>
+            <button class="button invitado-button" onclick="mostrarDetallesInvitado('si'); toggleSelection(document.querySelectorAll('.invitado-button'), 'invitado')" data-value="si">Sí</button>
+            <button class="button invitado-button" onclick="mostrarDetallesInvitado('no'); toggleSelection(document.querySelectorAll('.invitado-button'), 'invitado')" data-value="no">No</button>
+            <input type="hidden" id="invitado">
+
+            <div id="extra-options" class="hidden">
+
+                <h3>¿Cómo se llama tu acompañante?</h3>
+                <input type="text" id="nombre-acompanante" placeholder="Nombre del acompañante" oninput="actualizarNombreAcompanante()">
+
+                <h3 id="texto-menu-invitado">Menú para el acompañante</h3>
+                <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="carne">Carne</button>
+                <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="pescado">Pescado</button>
+                <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="vegano">Vegano</button>
+                <button class="button menu-invitado-button" onclick="toggleSelection(document.querySelectorAll('.menu-invitado-button'), 'comida-invitado')" data-value="infantil">Infantil</button>
+                <input type="hidden" id="comida-invitado">
+
+                <h3 id="texto-alergias-invitado">Alergias o restricciones del acompañante</h3>
+                <input type="text" id="alergenos-invitado" placeholder="Especifica si tiene alergias">
+            </div>
+        </div>
+        <br><br>
+        <button class="button enviar hidden" id="enviar-button" onclick="enviarFormulario()">Enviar</button>
+        <p id="mensaje-envio" class="hidden">¡Gracias por enviar tus datos! 🎉</p>
+    </div>
+</div>
+</body>
+</html>
