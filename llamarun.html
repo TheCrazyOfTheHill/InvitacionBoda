@@ -342,6 +342,10 @@
         Tu navegador no soporta el elemento de audio.
     </audio>
 
+    <audio id="audioJump">
+        <source src="audio/salto.m4a" type="audio/mp4">
+    </audio>
+
     <div class="contenedor">
 
         <div class="suelo"></div>
@@ -480,6 +484,9 @@
                 velY = impulso;
                 dino.classList.remove("dino-corriendo");
             }
+            const saltoSound = document.getElementById('audioJump');
+            saltoSound.currentTime = 0;
+            saltoSound.play();
         }
 
         function Refrescar() {
